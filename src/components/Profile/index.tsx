@@ -11,7 +11,7 @@ export function Profile() {
       <div className="flex flex-col text-zinc-300">
         <p className="text-md leading-snug">Felipe Silva</p>
         <a
-          href="/api/logout"
+          href="/api/auth/logout"
           className="text-xs text-red-400 hover:text-red-500"
         >
           Sair
