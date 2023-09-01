@@ -1,4 +1,5 @@
 import { LayoutDashboard, File, Settings, Gauge } from 'lucide-react';
+import { NavLink } from './NavLink';
 
 export function Sidebar() {
   return (
@@ -7,40 +8,20 @@ export function Sidebar() {
       <div className="mt-12 text-gray-100">
         <ul className="flex flex-col gap-4">
           <li>
-            <a
-              href="/"
-              className="flex cursor-pointer items-center gap-2 rounded-xl p-3 py-4 text-sm hover:bg-zinc-700 hover:text-gray-50"
-            >
-              <LayoutDashboard size={22} />
-              Dashboard
-            </a>
+            <NavLink href="/" title="Dashboard" icon={LayoutDashboard} />
           </li>
           <li>
-            <a
-              href="/pages"
-              className="flex cursor-pointer items-center gap-2 rounded-xl p-3 py-4 text-sm hover:bg-zinc-700 hover:text-gray-50"
-            >
-              <File size={22} />
-              Páginas
-            </a>
+            <NavLink href="/pages" title="Páginas" icon={File} />
           </li>
           <li>
-            <a
+            <NavLink
               href="/performance-test"
-              className="flex cursor-pointer items-center gap-2 rounded-xl p-3 py-4 text-sm hover:bg-zinc-700 hover:text-gray-50"
-            >
-              <Gauge size={22} />
-              Teste de performance
-            </a>
+              title="Teste de performance"
+              icon={Gauge}
+            />
           </li>
           <li>
-            <a
-              href="/settings"
-              className="flex cursor-pointer items-center gap-2 rounded-xl p-3 py-4 text-sm hover:bg-zinc-700 hover:text-gray-50"
-            >
-              <Settings size={22} />
-              Configurações
-            </a>
+            <NavLink href="/settings" title="Configurações" icon={Settings} />
           </li>
         </ul>
       </div>
