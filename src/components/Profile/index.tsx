@@ -1,4 +1,14 @@
+import { ChevronDown, LogOut } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { Button } from '../ui/button';
 
 export function Profile() {
   return (
@@ -8,14 +18,23 @@ export function Profile() {
         <AvatarFallback>FR</AvatarFallback>
       </Avatar>
 
-      <div className="flex flex-col text-zinc-300">
+      <div className="flex w-full items-center justify-between text-zinc-300">
         <p className="text-md leading-snug">Felipe Silva</p>
-        <a
-          href="/api/auth/logout"
-          className="text-xs text-red-400 hover:text-red-500"
-        >
-          Sair
-        </a>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button size="xs" variant="ghost">
+              <ChevronDown size={18} />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuLabel>Minha Conta</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>
+              <LogOut className="mr-2 h-4 w-4" />
+              <span>Sair</span>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </div>
   );

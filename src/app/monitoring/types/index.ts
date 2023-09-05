@@ -3,6 +3,7 @@ export type PageData = {
   url: string;
   status: 'up' | 'down';
   id: string;
+  daysRemaining: number;
 };
 
 export enum PageStatusEnum {
