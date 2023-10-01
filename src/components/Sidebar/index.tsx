@@ -1,4 +1,4 @@
-import { LayoutDashboard, Settings, Gauge, Activity } from 'lucide-react';
+import { Settings, Gauge, Activity } from 'lucide-react';
 import { NavLink } from './NavLink';
 import { Profile } from '../Profile';
 
@@ -9,9 +9,9 @@ export function Sidebar() {
         <h1 className="mt-3 pl-3 text-2xl">Logo</h1>
         <div className="mt-12 text-gray-100">
           <ul className="flex flex-col gap-4">
-            <li>
+            {/* <li>
               <NavLink href="/" title="Dashboard" icon={LayoutDashboard} />
-            </li>
+            </li> */}
             <li>
               <NavLink
                 href="/monitoring"

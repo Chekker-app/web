@@ -22,7 +22,7 @@ export function SSLBadge({ daysRemaining }: SSLBadgeProps) {
     } else if (daysRemaining >= 0 && daysRemaining <= 30) {
       return '05 Set';
     } else {
-      return 'SSL';
+      return 'SSL Ativo';
     }
   }
 

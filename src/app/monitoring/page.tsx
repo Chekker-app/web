@@ -1,20 +1,10 @@
 'use client';
 import { PlusIcon } from 'lucide-react';
 import { PageData } from './types';
-import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { useMonitoring } from './hooks/useMonitoring';
 import { MonitoringItem } from './components/MonitoringItem';
+import { AddMonitoring } from './components/AddMonitoring';
 
 const data: PageData[] = [
   {
@@ -131,54 +121,12 @@ export default function Pages() {
   return (
     <div className="px-20 py-6">
       <div className="flex justify-end">
-        <Dialog open={isOpenDialog} onOpenChange={setIsOpenDialog}>
-          <DialogTrigger asChild className="flex justify-end">
-            <Button size="sm">
-              <PlusIcon className="mr-2" size={22} />
-              Adicionar página
-            </Button>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle className="text-zinc-900">
-                Adicionar nova página
-              </DialogTitle>
-            </DialogHeader>
-            <form onSubmit={handleSubmit}>
-              <div className="mt-4 flex w-full flex-col gap-4">
-                <div className="grid w-full items-center gap-1.5">
-                  <Label htmlFor="name" className="text-zinc-900">
-                    Nome
-                  </Label>
-                  <Input
-                    className="mt-1 text-zinc-900"
-                    type="text"
-                    name="name"
-                    placeholder="Como você quer chamar este site?"
-                  />
-                </div>
-
-                <div className="grid w-full items-center gap-1.5">
-                  <Label htmlFor="url" className="text-zinc-900">
-                    Site
-                  </Label>
-                  <Input
-                    className="mt-1 text-zinc-900"
-                    type="url"
-                    name="url"
-                    placeholder="Insira a URL"
-                  />
-                </div>
-              </div>
-
-              <DialogFooter className="mt-4">
-                <Button type="submit" size="sm" disabled={isCreatingMonitoring}>
-                  Adicionar
-                </Button>
-              </DialogFooter>
-            </form>
-          </DialogContent>
-        </Dialog>
+        <AddMonitoring
+          handleSubmit={handleSubmit}
+          isCreatingMonitoring={isCreatingMonitoring}
+          isOpenDialog={isOpenDialog}
+          setIsOpenDialog={setIsOpenDialog}
+        />
       </div>
       <div className="mt-6">
         <p className="text-md leading-tight text-zinc-800">
