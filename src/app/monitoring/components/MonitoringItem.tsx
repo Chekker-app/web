@@ -69,7 +69,7 @@ export function MonitoringItem({
                 event.stopPropagation();
                 console.log(monitoringItemInfo);
               }}
-              className="text-red-600"
+              className="text-red-500"
             >
               <Trash className="mr-2 h-4 w-4" />
               <span className="text-xs">Excluir</span>

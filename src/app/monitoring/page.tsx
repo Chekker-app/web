@@ -132,7 +132,7 @@ export default function Pages() {
         <p className="text-md leading-tight text-zinc-800">
           Todos os {data.length} sistemas estão funcionando
         </p>
-        <div className="mt-3 rounded-md border border-zinc-300">
+        <div className="mt-3 rounded-md border border-b-border">
           <ScrollArea className="h-[60vh]">
             {data.map((item, index) => {
               const isLastItemToRender = index + 1 === data.length;
@@ -147,7 +147,7 @@ export default function Pages() {
           </ScrollArea>
           <button
             onClick={() => setIsOpenDialog(true)}
-            className="text-md flex w-full items-center gap-2 border-t border-zinc-300 px-7 py-5 hover:bg-zinc-300"
+            className="text-md flex w-full items-center gap-2 border-t border-b-border px-7 py-5 hover:bg-zinc-300"
           >
             <PlusIcon size={22} />
             Adicionar novo
