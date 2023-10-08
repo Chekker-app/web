@@ -114,7 +114,7 @@ const data: PageData[] = [
   },
 ];
 
-export default function Pages() {
+export function MonitoringList() {
   const { isOpenDialog, setIsOpenDialog, isCreatingMonitoring, handleSubmit } =
     useMonitoring();
 

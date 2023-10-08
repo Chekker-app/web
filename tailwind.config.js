@@ -87,6 +87,9 @@ module.exports = {
           foreground: 'hsl(var(--card-foreground))',
         },
       },
+      transformOrigin: {
+        indeterminateOrigin: '0% 50%',
+      },
       fontFamily: {
         sans: 'var(--font-roboto)',
       },
@@ -104,11 +107,21 @@ module.exports = {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: 0 },
         },
+        indeterminateAnimation: {
+          '0%': { transform: ' translateX(0) scaleX(0)' },
+          '30%': {
+            transform: 'translateX(0) scaleX(0.4)',
+          },
+          '100%': {
+            transform: 'translateX(100%) scaleX(0.4)',
+          },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         pingSlow: 'ping 2.5s cubic-bezier(0, 0, 0.2, 1) infinite;',
+        indeterminate: 'indeterminateAnimation 1s infinite linear',
       },
     },
   },

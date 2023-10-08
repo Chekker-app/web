@@ -1,4 +1,5 @@
 import { SSLBadge } from '@/components/SSLBadge';
+import { StatusIndicator } from '@/components/StatusIndicator';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -32,9 +33,7 @@ export function MonitoringItem({
       } px-7 py-4`}
     >
       <div className="flex items-center gap-7">
-        <span className="relative flex h-4 w-4 rounded-full bg-green-600">
-          <span className="absolute h-full w-full animate-pingSlow rounded-full bg-green-600 opacity-80"></span>
-        </span>
+        <StatusIndicator />
         <div>
           <p className="text-md text-left font-semibold">
             {monitoringItemInfo.name}

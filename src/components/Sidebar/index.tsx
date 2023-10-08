@@ -10,11 +10,7 @@ export function Sidebar() {
         <div className="mt-12 text-gray-100">
           <ul className="flex flex-col gap-4">
             <li>
-              <NavLink
-                href="/monitoring"
-                title="Monitoramento"
-                icon={Activity}
-              />
+              <NavLink href="/" title="Monitoramento" icon={Activity} />
             </li>
             <li>
               <NavLink
