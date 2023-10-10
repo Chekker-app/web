@@ -1,4 +1,4 @@
-import { Settings, Gauge, Activity } from 'lucide-react';
+import { Settings, Gauge, Activity, Wallet } from 'lucide-react';
 import { NavLink } from './NavLink';
 import { Profile } from '../Profile';
 
@@ -20,7 +20,14 @@ export function Sidebar() {
               />
             </li>
             <li>
-              <NavLink href="/settings" title="Configurações" icon={Settings} />
+              <NavLink href="/settings/billing" title="Plano" icon={Wallet} />
+            </li>
+            <li>
+              <NavLink
+                href="/settings/geral"
+                title="Configurações"
+                icon={Settings}
+              />
             </li>
           </ul>
         </div>

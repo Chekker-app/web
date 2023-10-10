@@ -26,7 +26,7 @@ export function MonitoringItem({
 }: MonitoringItemProps) {
   return (
     <Link
-      href={`/monitoring/${monitoringItemInfo.id}`}
+      href={`/monitoring/${monitoringItemInfo.id}/overview`}
       key={monitoringItemInfo.id}
       className={`flex w-full items-center justify-between hover:bg-zinc-300/40 ${
         !isLastItemToRender && 'border-b border-zinc-300'
@@ -56,7 +56,7 @@ export function MonitoringItem({
           <DropdownMenuContent align="end">
             <DropdownMenuItem>
               <Link
-                href={`/monitoring/${monitoringItemInfo.id}`}
+                href={`/monitoring/${monitoringItemInfo.id}/overview`}
                 className="flex items-center"
               >
                 <Settings className="mr-2 h-4 w-4" />

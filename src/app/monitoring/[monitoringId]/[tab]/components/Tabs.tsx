@@ -1,6 +1,6 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ReactNode } from 'react';
 
@@ -9,14 +9,19 @@ interface MonitoringDetailsTabs {
 }
 
 export function MonitoringDetailsTabs({ children }: MonitoringDetailsTabs) {
-  const pathname = usePathname();
+  const params = useParams();
 
   function handleChangeTab(tab: string) {
-    window.history.pushState(null, '', `${pathname}/${tab}`);
+    const url = location.origin;
+    window.history.pushState(
+      null,
+      '',
+      `${url}/monitoring/${params.monitoringId}/${tab}`,
+    );
   }
 
   return (
-    <Tabs defaultValue="overview">
+    <Tabs defaultValue={(params?.tab as string) || ''}>
       <TabsList className="w-full items-start justify-start rounded-none border-b border-b-border">
         <TabsTrigger
           value="overview"

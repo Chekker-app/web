@@ -1,5 +1,12 @@
 'use client';
-import { ChevronDown, LogOut, Settings } from 'lucide-react';
+import {
+  Activity,
+  ChevronDown,
+  Gauge,
+  LogOut,
+  Settings,
+  Wallet,
+} from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -27,7 +34,25 @@ export function ProfileActions() {
         <DropdownMenuLabel>Minha Conta</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <Link href="/settings" className="flex items-center">
+          <Link href="/" className="flex items-center">
+            <Activity className="mr-2 h-4 w-4" />
+            <span>Monitoramento</span>
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <Link href="/performance-test" className="flex items-center">
+            <Gauge className="mr-2 h-4 w-4" />
+            <span>Performance</span>
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <Link href="/settings/billing" className="flex items-center">
+            <Wallet className="mr-2 h-4 w-4" />
+            <span>Meu plano</span>
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <Link href="/settings/geral" className="flex items-center">
             <Settings className="mr-2 h-4 w-4" />
             <span>Configurações</span>
           </Link>

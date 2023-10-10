@@ -1,5 +1,5 @@
+'use client';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { GeneralConfigs } from './components/General';
 import {
   Card,
   CardContent,
@@ -10,6 +10,14 @@ import {
 } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
+import { GeneralConfigs } from '../components/General';
+import { useRouter } from 'next/navigation';
+
+interface SettingsTab {
+  params: {
+    tab: string;
+  };
+}
 
 // pegar o máximo permitido por plano
 // dividir por 100
@@ -17,12 +25,17 @@ import { Button } from '@/components/ui/button';
 // ex 5 páginas cadastradas = 100 / 5 = 20
 // cadastrou 3 páginas = 20 / 3 = 60
 
-export default function Settings() {
+export default function Settings({ params }: SettingsTab) {
+  const router = useRouter();
   return (
-    <Tabs defaultValue="geral">
+    <Tabs defaultValue={params.tab}>
       <TabsList className="w-full items-start justify-start rounded-none border-b border-b-border">
-        <TabsTrigger value="geral">Geral</TabsTrigger>
-        <TabsTrigger value="billing">Cobrança e Assinatura</TabsTrigger>
+        <TabsTrigger value="geral" onClick={() => router.push('geral')}>
+          Geral
+        </TabsTrigger>
+        <TabsTrigger value="billing" onClick={() => router.push('billing')}>
+          Cobrança e Assinatura
+        </TabsTrigger>
       </TabsList>
       <TabsContent value="geral" className="mt-5">
         <GeneralConfigs />
