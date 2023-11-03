@@ -3,7 +3,13 @@ import { Button } from '@/components/ui/button';
 import { ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
 
-export function Header() {
+interface HeaderProps {
+  status: 'up' | 'down' | null;
+  name: string;
+  url: string;
+}
+
+export function Header({ status, name, url }: HeaderProps) {
   return (
     <header>
       <Link href="/" className="rounded-lg hover:bg-zinc-100">
@@ -16,10 +22,10 @@ export function Header() {
         </Button>
       </Link>
       <div className="flex items-center gap-3">
-        <StatusIndicator />
-        <h1 className="text-3xl font-medium">Meu Site</h1>
+        <StatusIndicator status={status} />
+        <h1 className="text-3xl font-medium">{name}</h1>
         <p className="text-lg font-light text-gray-300">/</p>
-        <p className="text-lg font-light text-gray-300">meusitelindo.com.br</p>
+        <p className="text-lg font-light text-gray-300">{url}</p>
       </div>
     </header>
   );

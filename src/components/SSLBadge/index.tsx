@@ -7,9 +7,9 @@ interface SSLBadgeProps {
 
 export function SSLBadge({ daysRemaining }: SSLBadgeProps) {
   function getSSLBadgeVariant() {
-    if (daysRemaining < 0) {
+    if (daysRemaining <= 5) {
       return 'danger';
-    } else if (daysRemaining >= 0 && daysRemaining <= 30) {
+    } else if (daysRemaining > 5 && daysRemaining <= 30) {
       return 'warning';
     } else {
       return 'success';
@@ -17,9 +17,9 @@ export function SSLBadge({ daysRemaining }: SSLBadgeProps) {
   }
 
   function getSSLBadgeText() {
-    if (daysRemaining < 0) {
+    if (daysRemaining <= 0) {
       return 'Expirado';
-    } else if (daysRemaining >= 0 && daysRemaining <= 30) {
+    } else if (daysRemaining > 1 && daysRemaining <= 30) {
       return '05 Set';
     } else {
       return 'SSL Ativo';

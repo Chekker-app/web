@@ -1,34 +1,43 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Coisas para fazer
 
-## Getting Started
+- Ajustar retorno da Auth/me
+  - Retornar o plano atual
+  - Retornar o uso do plano
 
-First, run the development server:
+- Renomear Planos
+  - Rever informações
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+- Criar todas as rotinas para rodar de acordo com cada plano
+  - Configurar o banco de dados do firebase para salvar as informações dos logs
+  - Tratar todos os dados e salvar da forma correta
+  - Salvar tudo no firebase
+    - Tempo médio de carregamento
+    - Score de performance
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Adicionar mais 2 inputs de email na tela de configurações (email secundario e terciario) para default dos monitoramentos
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Implementar os logs de monitoramento na tela de detalhes
+  - Uptime
+  - Tempo médio de carregamento
+  - Relatório de Uptime
+  - Gráfico de performance
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- Criar funções para enviar os emais
+  - Email de SSL expirando
+  - Email diário de ssl expirando
+  - Email caso a página caiu
 
-## Learn More
+- Implementar dados na tela de Planos
+- Fazer todas as validações de planos
+  - Criar mais monitoramento
+  - Realizar mais testes
+  - Configurações nos detalhes do monitoramento
 
-To learn more about Next.js, take a look at the following resources:
+- Implementar opção de intervalo de requisição nos detalhes do monitoramento e fazer validações de planos
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Login e Cadastro
+- Middleware de autenticação e rotas protegidas
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Página de ajuda
+- Página de feedbacks
+- Melhorar tela de performance

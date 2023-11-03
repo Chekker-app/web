@@ -9,20 +9,18 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { MoreHorizontal, Settings, Trash } from 'lucide-react';
 import Link from 'next/link';
+import { IMonitoring } from '../types';
 
 interface MonitoringItemProps {
-  monitoringItemInfo: {
-    id: string;
-    name: string;
-    url: string;
-    daysRemaining: number;
-  };
+  monitoringItemInfo: IMonitoring;
   isLastItemToRender: boolean;
+  onDeleteMonitoring: (monitoringId: string) => void;
 }
 
 export function MonitoringItem({
   monitoringItemInfo,
   isLastItemToRender,
+  onDeleteMonitoring,
 }: MonitoringItemProps) {
   return (
     <Link
@@ -33,7 +31,7 @@ export function MonitoringItem({
       } px-7 py-4`}
     >
       <div className="flex items-center gap-7">
-        <StatusIndicator />
+        <StatusIndicator status={monitoringItemInfo?.status ?? null} />
         <div>
           <p className="text-md text-left font-semibold">
             {monitoringItemInfo.name}
@@ -42,7 +40,7 @@ export function MonitoringItem({
         </div>
       </div>
       <div className="flex items-center gap-2">
-        <SSLBadge daysRemaining={monitoringItemInfo.daysRemaining} />
+        <SSLBadge daysRemaining={monitoringItemInfo.sslDaysRemaining} />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
@@ -66,7 +64,7 @@ export function MonitoringItem({
             <DropdownMenuItem
               onClick={(event) => {
                 event.stopPropagation();
-                console.log(monitoringItemInfo);
+                onDeleteMonitoring(monitoringItemInfo.id);
               }}
               className="text-red-500"
             >
