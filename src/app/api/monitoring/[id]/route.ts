@@ -1,6 +1,7 @@
 import { prisma } from '@/lib/prisma';
 import { add, differenceInDays, format } from 'date-fns';
-import { NextResponse } from 'next/server';
+import { decode } from 'next-auth/jwt';
+import { NextRequest, NextResponse } from 'next/server';
 
 interface ParamsProps {
   params: {
@@ -29,8 +30,59 @@ export async function GET(_: Request, { params }: ParamsProps) {
   });
 }
 
-export async function PATCH(request: Request, { params }: ParamsProps) {
+export async function PATCH(request: NextRequest, { params }: ParamsProps) {
   const body = await request.json();
+  const token = request.cookies.get('next-auth.session-token')?.value;
+
+  const decoded = await decode({
+    token: token,
+    secret: process.env.NEXTAUTH_SECRET ?? '',
+  });
+
+  const userInfo = await prisma.user.findUniqueOrThrow({
+    where: { id: (decoded?.id as string) || '' },
+    select: {
+      Plan: {
+        select: {
+          intervalMin: true,
+          quantityEmailsAllowed: true,
+        },
+      },
+    },
+  });
+
+  const userPlanInterval = userInfo?.Plan?.intervalMin ?? 5;
+  const userPlanEmailsLimit = userInfo?.Plan?.quantityEmailsAllowed ?? 1;
+
+  if (body.checkIntervalTime && userPlanInterval > body.checkIntervalTime) {
+    return NextResponse.json(
+      {
+        message:
+          'Não foi possível atualizar informação. Seu plano atual não permite.',
+      },
+      { status: 403 },
+    );
+  }
+
+  if (body.secondary_email && userPlanEmailsLimit < 2) {
+    return NextResponse.json(
+      {
+        message:
+          'Não foi possível atualizar informação. Seu plano atual não permite.',
+      },
+      { status: 403 },
+    );
+  }
+
+  if (body.terciary_email && userPlanEmailsLimit < 3) {
+    return NextResponse.json(
+      {
+        message:
+          'Não foi possível atualizar informação. Seu plano atual não permite.',
+      },
+      { status: 403 },
+    );
+  }
 
   try {
     await prisma.site.update({
@@ -48,7 +100,7 @@ export async function PATCH(request: Request, { params }: ParamsProps) {
   }
 }
 
-export async function DELETE(request: Request, { params }: ParamsProps) {
+export async function DELETE(_: Request, { params }: ParamsProps) {
   try {
     await prisma.site.delete({
       where: {

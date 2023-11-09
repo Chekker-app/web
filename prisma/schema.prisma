@@ -11,17 +11,19 @@ datasource db {
 }
 
 model User {
-  id            String     @id @default(uuid())
-  name          String
-  email         String
-  avatarUrl     String
-  firebaseToken String
-  weeklyReports Boolean    @default(false)
-  Site          Site[]
-  Plan          Plan?      @relation(fields: [planId], references: [id])
-  planId        String?
-  planUsage     PlanUsage? @relation(fields: [planUsageId], references: [id])
-  planUsageId   String?
+  id              String     @id @default(uuid())
+  name            String
+  email           String
+  secondary_email String?
+  terciary_email  String?
+  avatarUrl       String
+  firebaseToken   String
+  weeklyReports   Boolean    @default(false)
+  Site            Site[]
+  Plan            Plan?      @relation(fields: [planId], references: [id])
+  planId          String?
+  planUsage       PlanUsage? @relation(fields: [planUsageId], references: [id])
+  planUsageId     String?
 }
 
 model Site {
@@ -52,15 +54,17 @@ model Plan {
   slug                  String
   monitorings           Int
   performanceTests      Int
-  intervalMin           Int?
+  quantityEmailsAllowed Int      @default(1)
+  intervalMin           Int
   checkSSL              Boolean?
   sendPageNotifications Boolean?
   User                  User[]
 }
 
 model PlanUsage {
-  id               String @id @default(uuid())
-  monitorings      Int
-  performanceTests Int
-  User             User[]
+  id                    String @id @default(uuid())
+  monitorings           Int
+  performanceTests      Int
+  quantityEmailsAllowed Int    @default(1)
+  User                  User[]
 }

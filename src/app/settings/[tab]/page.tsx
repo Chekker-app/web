@@ -1,6 +1,9 @@
+'use client';
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { GeneralConfigs } from '../components/General';
 import { useRouter } from 'next/navigation';
+import { PlanUsageInfo } from '../components/PlanUsageInfo';
 
 interface SettingsTab {
   params: {
@@ -34,7 +37,9 @@ export default function Settings({ params }: SettingsTab) {
       <TabsContent value="geral" className="mt-5">
         <GeneralConfigs />
       </TabsContent>
-      <TabsContent value="billing" className="mt-5 space-y-5"></TabsContent>
+      <TabsContent value="billing" className="mt-5 space-y-5">
+        <PlanUsageInfo />
+      </TabsContent>
     </Tabs>
   );
 }

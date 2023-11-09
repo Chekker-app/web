@@ -8,6 +8,7 @@ import {
 import { useToast } from '@/components/ui/use-toast';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useAuth } from '@/context/AuthContext';
 
 interface UseMonitoringDetailsProps {
   monitoringId: string;
@@ -19,11 +20,13 @@ export function useMonitoringDetails({
   getMonitoring = false,
 }: UseMonitoringDetailsProps) {
   const router = useRouter();
+  const { toast } = useToast();
+  const { user } = useAuth();
+
   const [monitoringToDelete, setMonitoringToDelete] = useState<string | null>(
     null,
   );
 
-  const { toast } = useToast();
   const monitoringMutation = useMutation({
     mutationKey: ['UPDATE_MONITORING', monitoringId],
     mutationFn: async (data: IUpdateMonitoring) =>
@@ -62,13 +65,26 @@ export function useMonitoringDetails({
             description: 'Informação atualizada com sucesso!',
           });
         },
-        onError: () =>
+        onError: (error: any) =>
           toast({
             variant: 'destructive',
-            description: 'Houve um erro ao atualizar a informação',
+            description:
+              error?.response?.data?.message ||
+              'Houve um erro ao atualizar a informação',
           }),
       },
     );
+  }
+
+  function updateMonitoringInterval(value: number) {
+    if (user?.Plan?.intervalMin > value) {
+      return toast({
+        variant: 'destructive',
+        description:
+          'Seu plano atual não permite o tempo selecionado. Faça o upgrade do seu plano.',
+      });
+    }
+    return updateMonitoringField('checkIntervalTime', value);
   }
 
   async function deleteMonitoringInfo() {
@@ -96,6 +112,7 @@ export function useMonitoringDetails({
     monitoringToDelete,
     setMonitoringToDelete,
     deleteMonitoringInfo,
+    updateMonitoringInterval,
     isLoadingDelete: deleteMonitoringMutation.isLoading,
   };
 }

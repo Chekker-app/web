@@ -40,6 +40,10 @@ export function GeneralConfigs() {
       <div className="flex items-center justify-between">
         <div className="max-w-[250px]">
           <p className="font-semibold">Endereço de Email</p>
+          <p className="mt-1 text-sm font-light text-zinc-400">
+            Será usado como e-mail primário para receber notificações sobre seus
+            sites.
+          </p>
         </div>
         <div className="w-full max-w-[320px]">
           <Input
@@ -47,6 +51,48 @@ export function GeneralConfigs() {
             className="bg-zinc-100"
             defaultValue={user?.email}
             onBlur={(event) => updateUserInfo('email', event.target.value)}
+          />
+        </div>
+      </div>
+
+      <Separator className="my-4 bg-zinc-400/40" />
+      <div className="flex items-center justify-between">
+        <div className="max-w-[250px]">
+          <p className="font-semibold">Email secundário</p>
+          <p className="mt-1 text-sm font-light text-zinc-400">
+            Email secundário que receberá as mesmas informações sobre seus
+            sites. (Ideal para equipes)
+          </p>
+        </div>
+        <div className="w-full max-w-[320px]">
+          <Input
+            placeholder="Insira seu email"
+            className="bg-zinc-100"
+            defaultValue={user?.secondary_email}
+            onBlur={(event) =>
+              updateUserInfo('secondary_email', event.target.value)
+            }
+          />
+        </div>
+      </div>
+
+      <Separator className="my-4 bg-zinc-400/40" />
+      <div className="flex items-center justify-between">
+        <div className="max-w-[250px]">
+          <p className="font-semibold">Email terciário</p>
+          <p className="mt-1 text-sm font-light text-zinc-400">
+            Email terciário que receberá as mesmas informações sobre seus sites.
+            (Ideal para equipes)
+          </p>
+        </div>
+        <div className="w-full max-w-[320px]">
+          <Input
+            placeholder="Insira seu email"
+            className="bg-zinc-100"
+            defaultValue={user?.terciary_email}
+            onBlur={(event) =>
+              updateUserInfo('terciary_email', event.target.value)
+            }
           />
         </div>
       </div>

@@ -5,12 +5,14 @@ export interface IUpdateMonitoring {
   [key: string]: string | number | boolean;
 }
 
-export async function getMonitoringDetails(id: string) {
+export async function getMonitoringDetails(
+  id: string,
+): Promise<IMonitoringDetails> {
   try {
     const response = await api.get<IMonitoringDetails>(`/monitoring/${id}`);
     return response.data;
-  } catch (error) {
-    return console.log(error);
+  } catch (error: any) {
+    return error;
   }
 }
 
@@ -21,7 +23,7 @@ export async function updateMonitoringInfo(
   try {
     return await api.patch(`/monitoring/${id}`, data);
   } catch (error) {
-    return console.log(error);
+    return error;
   }
 }
 

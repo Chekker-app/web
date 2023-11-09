@@ -27,6 +27,7 @@ export function Configs({ monitoringDetails }: ConfigProps) {
     setMonitoringToDelete,
     deleteMonitoringInfo,
     isLoadingDelete,
+    updateMonitoringInterval,
   } = useMonitoringDetails({
     monitoringId: monitoringDetails?.id ?? '',
   });
@@ -99,6 +100,38 @@ export function Configs({ monitoringDetails }: ConfigProps) {
               }
             />
           </div>
+        </div>
+        <Separator className="!my-6" />
+        <div className="flex items-center justify-between">
+          <div>
+            <Label htmlFor="daysRemind">Intervalo entre monitoramentos</Label>
+            <p className="max-w-sm text-sm text-gray-400">
+              Defina o intervalo de tempo com que faremos a verificação da
+              status da sua página. Ex: análises de 5 em 5 minutos.
+            </p>
+          </div>
+          <Select
+            value={monitoringDetails?.checkIntervalTime.toString()}
+            onValueChange={(value) => updateMonitoringInterval(Number(value))}
+          >
+            <SelectTrigger className="w-[200px]">
+              <SelectValue placeholder="Selecione uma opção" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectItem value="1">1 minuto</SelectItem>
+                <SelectItem value="2">2 minutos</SelectItem>
+                <SelectItem value="3">3 minutos</SelectItem>
+                <SelectItem value="5">5 minutos</SelectItem>
+                <SelectItem value="10">10 minutos</SelectItem>
+                <SelectItem value="30">30 minutos</SelectItem>
+                <SelectItem value="60">1 hora</SelectItem>
+                <SelectItem value="120">2 horas</SelectItem>
+                <SelectItem value="24">4 horas</SelectItem>
+                <SelectItem value="48">8 horas</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
         </div>
         <Separator className="!my-6" />
         <div>

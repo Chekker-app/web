@@ -1,4 +1,3 @@
-// import { prisma } from '@/lib/prisma';
 import { prisma } from '@/lib/prisma';
 import { getToken } from 'next-auth/jwt';
 import { NextRequest, NextResponse } from 'next/server';
@@ -6,8 +5,16 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function GET(request: NextRequest) {
   const token = await getToken({ req: request });
 
+  if (!token) {
+    return NextResponse.json(
+      { message: 'Token not provided ' },
+      { status: 401 },
+    );
+  }
+
   const user = await prisma.user.findUniqueOrThrow({
-    where: { id: token?.id as any },
+    where: { id: token?.id as string },
+    include: { Plan: true, planUsage: true },
   });
 
   const [firstName, lastName] = user.name.split(' ');

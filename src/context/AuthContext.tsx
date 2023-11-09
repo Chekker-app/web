@@ -13,7 +13,9 @@ import {
 type User = {
   name: string;
   email: string;
-  plan: Plan;
+  secondary_email?: string;
+  terciary_email?: string;
+  Plan: Plan;
   weeklyReports: boolean;
   planUsage: PlanUsage;
   shortName: string;
