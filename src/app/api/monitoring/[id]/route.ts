@@ -39,6 +39,10 @@ export async function PATCH(request: NextRequest, { params }: ParamsProps) {
     secret: process.env.NEXTAUTH_SECRET ?? '',
   });
 
+  if (!decoded) {
+    return NextResponse.redirect(new URL('/login', request.url));
+  }
+
   const userInfo = await prisma.user.findUniqueOrThrow({
     where: { id: (decoded?.id as string) || '' },
     select: {
@@ -94,7 +98,7 @@ export async function PATCH(request: NextRequest, { params }: ParamsProps) {
     return NextResponse.json({ message: 'infos updated' });
   } catch (error) {
     return NextResponse.json(
-      { message: 'error when update field' },
+      { message: 'Não foi possível atualizar a informação. Tente novamente.' },
       { status: 400 },
     );
   }
@@ -110,7 +114,7 @@ export async function DELETE(_: Request, { params }: ParamsProps) {
     return NextResponse.json({ message: 'site deleted' });
   } catch (error) {
     return NextResponse.json(
-      { message: 'error when delete site' },
+      { message: 'Não foi possível excluir o monitoramento. Tente novamente.' },
       { status: 400 },
     );
   }

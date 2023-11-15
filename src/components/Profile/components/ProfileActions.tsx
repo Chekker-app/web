@@ -17,12 +17,9 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { signOut } from 'next-auth/react';
 
 export function ProfileActions() {
-  function handleLogout() {
-    console.log('aqui');
-  }
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -57,7 +54,9 @@ export function ProfileActions() {
             <span>Configurações</span>
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={handleLogout}>
+        <DropdownMenuItem
+          onClick={() => signOut({ callbackUrl: '/login', redirect: true })}
+        >
           <LogOut className="mr-2 h-4 w-4" />
           <span>Sair</span>
         </DropdownMenuItem>

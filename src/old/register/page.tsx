@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input';
 import { signIn } from 'next-auth/react';
 import { FormEvent } from 'react';
 
-export default function Login() {
+export default function Register() {
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
@@ -24,39 +24,26 @@ export default function Login() {
 
         <form className="mt-12" onSubmit={handleSubmit}>
           <div className="space-y-1">
-            <p className="text-xl font-medium">Boas vindas</p>
+            <p className="text-xl font-medium">Cadastre-se</p>
             <p className="text-sm text-muted-foreground">
-              Insira os seus dados para acessar a sua conta
+              É de graça e instantâneo!
             </p>
           </div>
           <div className="mt-8 space-y-8">
+            <Input name="name" type="email" placeholder="Nome completo" />
             <Input name="email" type="email" placeholder="Email cadastrado" />
             <Input name="email" type="password" placeholder="Senha" />
           </div>
-          {/* <p className="mt-8 text-right text-xs text-foreground">
-            Esqueceu sua senha?
-            <a
-              href="/reset-password"
-              className="ml-1 text-primary hover:opacity-60"
-            >
-              Redefina
-            </a>
-          </p> */}
           <Button
             className="mt-12 w-full bg-primary text-white hover:opacity-90"
             size="lg"
           >
-            Entrar na minha conta
+            Criar minha conta
           </Button>
           <p className="mt-10 text-center text-sm text-foreground">
-            Ainda não tem cadastro?
-            <a
-              href="https://facebook.com"
-              target="_blank"
-              rel="noreferrer noopen"
-              className="ml-1 text-primary hover:opacity-60"
-            >
-              Cadastre-se agora!
+            Já tem cadastro?
+            <a href="/login" className="ml-1 text-primary hover:opacity-60">
+              Acessar minha conta!
             </a>
           </p>
         </form>

@@ -24,39 +24,24 @@ export default function Login() {
 
         <form className="mt-12" onSubmit={handleSubmit}>
           <div className="space-y-1">
-            <p className="text-xl font-medium">Boas vindas</p>
+            <p className="text-xl font-medium">Recuperar senha</p>
             <p className="text-sm text-muted-foreground">
-              Insira os seus dados para acessar a sua conta
+              Você receberá em seu e-mail um link para cadastrar uma nova senha.
             </p>
           </div>
-          <div className="mt-8 space-y-8">
+          <div className="mt-8">
             <Input name="email" type="email" placeholder="Email cadastrado" />
-            <Input name="email" type="password" placeholder="Senha" />
           </div>
-          {/* <p className="mt-8 text-right text-xs text-foreground">
-            Esqueceu sua senha?
-            <a
-              href="/reset-password"
-              className="ml-1 text-primary hover:opacity-60"
-            >
-              Redefina
-            </a>
-          </p> */}
           <Button
             className="mt-12 w-full bg-primary text-white hover:opacity-90"
             size="lg"
           >
-            Entrar na minha conta
+            Recuperar senha
           </Button>
           <p className="mt-10 text-center text-sm text-foreground">
-            Ainda não tem cadastro?
-            <a
-              href="https://facebook.com"
-              target="_blank"
-              rel="noreferrer noopen"
-              className="ml-1 text-primary hover:opacity-60"
-            >
-              Cadastre-se agora!
+            Ja tem cadastro?
+            <a href="/login" className="ml-1 text-primary hover:opacity-60">
+              Acessar minha conta!
             </a>
           </p>
         </form>

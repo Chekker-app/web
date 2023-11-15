@@ -22,7 +22,7 @@ model User {
   Site            Site[]
   Plan            Plan?      @relation(fields: [planId], references: [id])
   planId          String?
-  planUsage       PlanUsage? @relation(fields: [planUsageId], references: [id])
+  PlanUsage       PlanUsage?
   planUsageId     String?
 }
 
@@ -62,9 +62,10 @@ model Plan {
 }
 
 model PlanUsage {
-  id                    String @id @default(uuid())
-  monitorings           Int
-  performanceTests      Int
-  quantityEmailsAllowed Int    @default(1)
-  User                  User[]
+  id               String  @id @default(uuid())
+  monitorings      Int
+  performanceTests Int
+  usedEmails       Int     @default(1)
+  userId           String? @unique
+  User             User?   @relation(fields: [userId], references: [id])
 }

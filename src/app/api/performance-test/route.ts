@@ -1,13 +1,53 @@
 import axios from 'axios';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import {
   filterAndFormatOptimizationOpportunities,
   getAllCoreLighthouseMetrics,
   getAllCruxMetrics,
 } from './utils';
+import { decode } from 'next-auth/jwt';
+import { prisma } from '@/lib/prisma';
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   const { url } = await request.json();
+  const token = request.cookies.get('next-auth.session-token')?.value;
+
+  const decoded = await decode({
+    token: token,
+    secret: process.env.NEXTAUTH_SECRET ?? '',
+  });
+
+  if (!decoded) {
+    return NextResponse.redirect(new URL('/login', request.url));
+  }
+
+  const userInfo = await prisma.user.findUniqueOrThrow({
+    where: { id: (decoded?.id as string) || '' },
+    select: {
+      Plan: {
+        select: {
+          performanceTests: true,
+        },
+      },
+      PlanUsage: {
+        select: { performanceTests: true },
+      },
+      id: true,
+    },
+  });
+
+  if (
+    Number(userInfo.PlanUsage?.performanceTests) + 1 >
+    Number(userInfo.Plan?.performanceTests)
+  ) {
+    return NextResponse.json(
+      {
+        message:
+          'Não foi possível realizar mais testes. Seu plano atual não permite.',
+      },
+      { status: 403 },
+    );
+  }
 
   try {
     const { data } = await axios.get(
@@ -45,6 +85,11 @@ export async function POST(request: Request) {
       },
     };
 
+    await prisma.planUsage.update({
+      where: { userId: userInfo?.id },
+      data: { performanceTests: { increment: 1 } },
+    });
+
     return NextResponse.json(
       {
         loadingExperienceMetrics,
@@ -56,6 +101,9 @@ export async function POST(request: Request) {
       },
     );
   } catch (error: any) {
-    console.log('error aqui', error);
+    return NextResponse.json(
+      { message: 'Não foi realizar o teste de performance. Tente novamente.' },
+      { status: 400 },
+    );
   }
 }

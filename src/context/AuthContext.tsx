@@ -17,7 +17,7 @@ type User = {
   terciary_email?: string;
   Plan: Plan;
   weeklyReports: boolean;
-  planUsage: PlanUsage;
+  PlanUsage: PlanUsage;
   shortName: string;
 };
 
@@ -36,7 +36,7 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
 
   async function getUserInfo() {
     try {
-      const response = await api.get('/auth/me');
+      const response = await api.get('/session/me');
       setUser(response.data);
     } catch (error) {
       console.log(error);

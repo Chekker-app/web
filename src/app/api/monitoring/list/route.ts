@@ -1,12 +1,22 @@
 import { prisma } from '@/lib/prisma';
-import { NextResponse } from 'next/server';
+import { decode } from 'next-auth/jwt';
+import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET() {
-  const fixedId = 'ee7a3054-8e14-4940-a23e-7701bfe1cecd';
+export async function GET(request: NextRequest) {
+  const token = request.cookies.get('next-auth.session-token')?.value;
+
+  const decoded = await decode({
+    token: token,
+    secret: process.env.NEXTAUTH_SECRET ?? '',
+  });
+
+  if (!decoded) {
+    return NextResponse.redirect(new URL('/login', request.url));
+  }
 
   const sites = await prisma.site.findMany({
     where: {
-      userId: fixedId,
+      userId: decoded?.id as string,
     },
     select: {
       id: true,

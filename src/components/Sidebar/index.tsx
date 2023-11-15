@@ -4,7 +4,7 @@ import { Profile } from '../Profile';
 
 export function Sidebar() {
   return (
-    <aside className="flex max-h-screen w-64 flex-col justify-between bg-zinc-900 px-4 py-5">
+    <aside className="flex max-h-screen w-64 flex-col justify-between border-r bg-background px-4 py-5">
       <div>
         <h1 className="mt-3 pl-3 text-2xl">Logo</h1>
         <div className="mt-12 text-gray-100">

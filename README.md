@@ -17,29 +17,35 @@
 - Implementar opção de intervalo de requisição nos detalhes do monitoramento e fazer validações de planos √
 
 - Implementar bloqueio de edição de email secundario e terciario
-de acordo com o plano
+de acordo com o plano √
 
-- Login e Cadastro
+- Login, Cadastro e recuperar senha √
 
-- Página de ajuda
-
-- Página de feedbacks
-
-- Melhorar tela de performance
+- Fazer todas as validações de planos
+  - Criar mais monitoramento √
+  - Realizar mais testes √
+  - Configurações nos detalhes do monitoramento √
 
 - Fazer upgrade do plano
 
-- Fazer todas as validações de planos
-  - Criar mais monitoramento
-  - Realizar mais testes
-  - Configurações nos detalhes do monitoramento
-
 - Criar todas as rotinas para rodar de acordo com cada plano
-  - Configurar o banco de dados do firebase para salvar as informações dos logs
-  - Tratar todos os dados e salvar da forma correta
-  - Salvar tudo no firebase
-    - Tempo médio de carregamento
-    - Score de performance
+  - Configurar o banco de dados do firebase para salvar as informações dos logs √
+  - Tratar todos os dados e salvar da forma correta √
+  - Salvar tudo no firebase √
+    - Tempo médio de carregamento √
+
+- Criar funções para enviar os emais
+  - Email de SSL expirando
+  - Email diário de ssl expirando
+  - Email caso a página caiu
+
+- Criar monitoramento de performance
+  - Criar collection nova no firebase
+    - siteId
+    - Date
+    - score
+  - Criar função para checar performance
+    - Salvar no firebase após rodar
 
 - Implementar os logs de monitoramento na tela de detalhes
   - Uptime
@@ -47,7 +53,5 @@ de acordo com o plano
   - Relatório de Uptime
   - Gráfico de performance
 
-- Criar funções para enviar os emais
-  - Email de SSL expirando
-  - Email diário de ssl expirando
-  - Email caso a página caiu
+- Página de feedbacks
+- Melhorar tela de performance
