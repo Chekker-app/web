@@ -9,7 +9,7 @@ interface SSLInfoProps {
 
 export function SSLInfo({ monitoringDetails }: SSLInfoProps) {
   const daysRemaining = monitoringDetails?.sslDaysRemaining ?? 0;
-  const SslIcon = daysRemaining >= 0 ? Lock : Unlock;
+  const SslIcon = daysRemaining > 0 ? Lock : Unlock;
   const sslInfoColor = useMemo(() => {
     if (daysRemaining <= 5) {
       return 'text-red-500';
@@ -32,7 +32,9 @@ export function SSLInfo({ monitoringDetails }: SSLInfoProps) {
         <h3>
           Dias restantes:{' '}
           <span className={`text-xl font-medium ${sslInfoColor}`}>
-            {monitoringDetails?.sslDaysRemaining}
+            {daysRemaining >= 0
+              ? monitoringDetails?.sslDaysRemaining
+              : 'Expirado'}
           </span>
         </h3>
         <div>

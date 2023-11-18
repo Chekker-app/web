@@ -85,11 +85,6 @@ export async function POST(request: NextRequest) {
       },
     };
 
-    await prisma.planUsage.update({
-      where: { userId: userInfo?.id },
-      data: { performanceTests: { increment: 1 } },
-    });
-
     return NextResponse.json(
       {
         loadingExperienceMetrics,

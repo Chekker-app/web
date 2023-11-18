@@ -7,74 +7,43 @@ import {
 } from '@/components/ui/tooltip';
 import { Tracker } from '@tremor/react';
 import { Info } from 'lucide-react';
+import { IUptimeTrackerInfo } from '../../../types';
+import { getQuantityOfDaysInMonth } from '@/utils/date';
 
 interface UptimeTrackerProps {
-  data: any[];
+  data: IUptimeTrackerInfo[];
 }
 
-// interface Tracker {
-//   color: Color;
-//   tooltip: any;
-// }
-
-// const data: Tracker[] = [
-//   { color: 'emerald', tooltip: 'Operational' },
-//   { color: 'emerald', tooltip: 'Operational' },
-//   { color: 'emerald', tooltip: 'Operational' },
-//   { color: 'emerald', tooltip: 'Operational' },
-//   { color: 'emerald', tooltip: 'Operational' },
-//   { color: 'emerald', tooltip: 'Operational' },
-//   { color: 'emerald', tooltip: 'Operational' },
-//   { color: 'emerald', tooltip: 'Operational' },
-//   { color: 'emerald', tooltip: 'Operational' },
-//   { color: 'emerald', tooltip: 'Operational' },
-//   { color: 'emerald', tooltip: 'Operational' },
-//   { color: 'emerald', tooltip: 'Operational' },
-//   { color: 'emerald', tooltip: 'Operational' },
-//   { color: 'emerald', tooltip: 'Operational' },
-//   { color: 'rose', tooltip: 'Downtime' },
-//   { color: 'emerald', tooltip: 'Operational' },
-//   { color: 'emerald', tooltip: 'Operational' },
-//   { color: 'emerald', tooltip: 'Operational' },
-//   { color: 'emerald', tooltip: 'Operational' },
-//   { color: 'gray', tooltip: 'Maintenance' },
-//   { color: 'emerald', tooltip: 'Operational' },
-//   { color: 'emerald', tooltip: 'Operational' },
-//   { color: 'emerald', tooltip: 'Operational' },
-//   { color: 'yellow', tooltip: 'Degraded' },
-//   { color: 'emerald', tooltip: 'Operational' },
-//   { color: 'emerald', tooltip: 'Operational' },
-//   { color: 'emerald', tooltip: 'Operational' },
-//   { color: 'emerald', tooltip: 'Operational' },
-//   { color: 'yellow', tooltip: 'Degraded' },
-//   { color: 'emerald', tooltip: 'Operational' },
-//   { color: 'emerald', tooltip: 'Operational' },
-//   { color: 'emerald', tooltip: 'Operational' },
-//   { color: 'emerald', tooltip: 'Operational' },
-//   { color: 'emerald', tooltip: 'Operational' },
-//   { color: 'emerald', tooltip: 'Operational' },
-//   { color: 'emerald', tooltip: 'Operational' },
-//   { color: 'emerald', tooltip: 'Operational' },
-//   { color: 'emerald', tooltip: 'Operational' },
-//   { color: 'emerald', tooltip: 'Operational' },
-//   { color: 'emerald', tooltip: 'Operational' },
-//   { color: 'emerald', tooltip: 'Operational' },
-//   { color: 'emerald', tooltip: 'Operational' },
-//   { color: 'emerald', tooltip: 'Operational' },
-//   { color: 'emerald', tooltip: 'Operational' },
-//   {
-//     color: 'emerald',
-//     tooltip: (
-//       <div className="flex w-52 items-center justify-between px-3 py-2">
-//         <p>10 Out 2023</p>
-//         <p>-</p>
-//         <p>100% Uptime</p>
-//       </div>
-//     ),
-//   },
-// ];
-
 export function UptimeTracker({ data }: UptimeTrackerProps) {
+  function formatUpTimeData(data: IUptimeTrackerInfo[]) {
+    const amountDaysInMonth = getQuantityOfDaysInMonth();
+    const remainingDays = amountDaysInMonth - data.length;
+
+    const validUpTimeTracker = data.map((item) => {
+      const info = {
+        color: item.color,
+        tooltip: (
+          <div className="flex w-52 items-center justify-between px-3 py-2">
+            <p>{item.day}</p>
+            <p>-</p>
+            <p>{item.uptime} Uptime</p>
+          </div>
+        ),
+      };
+      return info as any;
+    });
+
+    const notCollectedTracker =
+      remainingDays <= 0
+        ? []
+        : Array.from({ length: remainingDays }).map(() => ({
+            color: 'gray',
+            tooltip: 'Não obtido',
+          }));
+
+    return [...validUpTimeTracker, ...notCollectedTracker];
+  }
+
   return (
     <Card className="border-b-border p-4 shadow-sm">
       <h1 className="flex items-center gap-2">
@@ -99,7 +68,7 @@ export function UptimeTracker({ data }: UptimeTrackerProps) {
           Nenhuma informação de Uptime encontrada...
         </p>
       ) : (
-        <Tracker data={data} className="mt-4" />
+        <Tracker data={formatUpTimeData(data)} className="mt-4" />
       )}
     </Card>
   );

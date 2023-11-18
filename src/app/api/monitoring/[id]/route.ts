@@ -1,7 +1,10 @@
 import { prisma } from '@/lib/prisma';
-import { add, differenceInDays, format } from 'date-fns';
+import { add, format, sub } from 'date-fns';
 import { decode } from 'next-auth/jwt';
 import { NextRequest, NextResponse } from 'next/server';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { db } from '../../../../lib/firebase';
+import { getUpTimeTrackerInfo } from '@/utils/uptimeTracker';
 
 interface ParamsProps {
   params: {
@@ -15,6 +18,45 @@ export async function GET(_: Request, { params }: ParamsProps) {
       id: params.id,
     },
   });
+
+  const logsCollection = collection(db, 'logs');
+  const dataInicial = new Date();
+  dataInicial.setDate(dataInicial.getDate() - 30);
+
+  const q = query(
+    logsCollection,
+    where('siteId', '==', params.id),
+    where('date', '>=', dataInicial),
+  );
+
+  const logsInMonth = await getDocs(q);
+
+  const amountOfLogsInMonth = logsInMonth.size;
+  const totalUp = logsInMonth.docs.filter(
+    (doc) => doc.data().status === 'up',
+  ).length;
+
+  const monitoringUpTime = ((totalUp / amountOfLogsInMonth) * 100).toFixed(2);
+
+  const logsData = logsInMonth.docs.map((doc) => ({
+    responseTime: Number(doc.data().responseTime),
+    status: doc.data().status,
+    date: sub(new Date(doc.data().date.toDate()), { hours: 3 }),
+  }));
+
+  const totalResponseTime = logsData.reduce(
+    (acc, current) => (acc += current.responseTime),
+    0,
+  );
+
+  const averageResponseTime = (
+    totalResponseTime /
+    logsData.length /
+    1000
+  ).toFixed(2);
+
+  const upTimeTrackerInfo = getUpTimeTrackerInfo(logsInMonth);
+
   return NextResponse.json({
     ...site,
     sslValidTo: format(
@@ -25,8 +67,11 @@ export async function GET(_: Request, { params }: ParamsProps) {
       add(new Date(site.sslValidFrom), { hours: 3 }),
       'dd/MM/yyyy HH:mm:ss',
     ),
-    sslDaysRemaining: differenceInDays(new Date(site.sslValidTo), new Date()),
+    sslDaysRemaining: site.sslDaysRemaining,
     createdAt: format(new Date(site.createdAt), 'dd/MM/yyyy HH:mm:ss'),
+    averageResponseTime,
+    monitoringUpTime,
+    upTimeTrackerInfo,
   });
 }
 

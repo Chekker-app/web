@@ -66,6 +66,8 @@ export function useMonitoringDetails({
     queryFn: async () => getMonitoringDetails(monitoringId),
     enabled: Boolean(monitoringId) && getMonitoring,
     refetchOnWindowFocus: false,
+    refetchInterval: user?.Plan?.intervalMin * 1000 * 60,
+    cacheTime: user?.Plan?.intervalMin * 1000 * 60,
     onError: (error: any) => {
       toast({
         variant: 'destructive',

@@ -117,16 +117,16 @@ export function Configs({ monitoringDetails }: ConfigProps) {
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectItem value="1">1 minuto</SelectItem>
-                <SelectItem value="2">2 minutos</SelectItem>
                 <SelectItem value="3">3 minutos</SelectItem>
                 <SelectItem value="5">5 minutos</SelectItem>
                 <SelectItem value="10">10 minutos</SelectItem>
                 <SelectItem value="30">30 minutos</SelectItem>
                 <SelectItem value="60">1 hora</SelectItem>
                 <SelectItem value="120">2 horas</SelectItem>
-                <SelectItem value="24">4 horas</SelectItem>
-                <SelectItem value="48">8 horas</SelectItem>
+                <SelectItem value="240">4 horas</SelectItem>
+                <SelectItem value="480">8 horas</SelectItem>
+                <SelectItem value="720">12 horas</SelectItem>
+                <SelectItem value="1440">1 dia</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>

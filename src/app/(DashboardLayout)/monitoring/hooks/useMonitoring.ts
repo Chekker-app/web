@@ -4,9 +4,11 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { FormEvent, useState } from 'react';
 import { getAllMonitorings } from '../services';
 import { deleteMonitoring } from '../[monitoringId]/[tab]/services';
+import { useAuth } from '@/context/AuthContext';
 
 export function useMonitoring() {
   const { toast } = useToast();
+  const { user } = useAuth();
   const [isOpenDialog, setIsOpenDialog] = useState(false);
   const [isCreatingMonitoring, setIsCreatingMonitoring] = useState(false);
   const [monitoringToDelete, setMonitoringToDelete] = useState<string | null>(
@@ -25,6 +27,7 @@ export function useMonitoring() {
   } = useQuery({
     queryKey: ['/monitorings'],
     queryFn: getAllMonitorings,
+    refetchInterval: user?.Plan?.intervalMin * 1000 * 60,
     onError: (error: any) => {
       toast({
         variant: 'destructive',

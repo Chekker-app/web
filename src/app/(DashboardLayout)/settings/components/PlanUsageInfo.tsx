@@ -35,7 +35,7 @@ export function PlanUsageInfo() {
         <CardContent className="flex flex-col gap-5 px-0 py-5">
           <div className="w-full space-y-2">
             <div className="flex justify-between">
-              <p>Sites Monitorados</p>
+              <p>Páginas Monitoradas</p>
               <p>
                 {user?.PlanUsage?.monitorings}/{user?.Plan?.monitorings}
               </p>
@@ -50,7 +50,7 @@ export function PlanUsageInfo() {
 
           <div className="w-full space-y-2">
             <div className="flex justify-between">
-              <p>Testes realizados</p>
+              <p>Testes automáticos realizados</p>
               <p>
                 {user?.PlanUsage?.performanceTests}/
                 {user?.Plan?.performanceTests}

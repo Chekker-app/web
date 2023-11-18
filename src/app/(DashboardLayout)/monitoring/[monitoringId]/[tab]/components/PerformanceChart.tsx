@@ -9,48 +9,58 @@ import {
 import { AreaChart } from '@tremor/react';
 import { Card } from '@/components/ui/card';
 
-// export const performance: DailyPerformance[] = [
-//   {
-//     date: '2023-05-01',
-//     Porcentagem: 0,
-//   },
-//   {
-//     date: '2023-05-02',
-//     Porcentagem: 10,
-//   },
-//   {
-//     date: '2023-05-03',
-//     Porcentagem: 15,
-//   },
-//   {
-//     date: '2023-05-04',
-//     Porcentagem: 20,
-//   },
-//   {
-//     date: '2023-05-05',
-//     Porcentagem: 28,
-//   },
-//   {
-//     date: '2023-05-06',
-//     Porcentagem: 32,
-//   },
-//   {
-//     date: '2023-05-07',
-//     Porcentagem: 50,
-//   },
-//   {
-//     date: '2023-05-08',
-//     Porcentagem: 70,
-//   },
-//   {
-//     date: '2023-05-09',
-//     Porcentagem: 92,
-//   },
-//   {
-//     date: '2023-05-07',
-//     Porcentagem: 50,
-//   },
-// ];
+export const performance = [
+  {
+    date: '2023-05-01',
+    Performance: 0,
+    Resposta: `3.52s`,
+  },
+  {
+    date: '2023-05-02',
+    Performance: 10,
+    Resposta: `3.52s`,
+  },
+  {
+    date: '2023-05-03',
+    Performance: 15,
+    Resposta: `3.52s`,
+  },
+  {
+    date: '2023-05-04',
+    Performance: 20,
+    Resposta: `3.52s`,
+  },
+  {
+    date: '2023-05-05',
+    Performance: 28,
+    Resposta: `3.52s`,
+  },
+  {
+    date: '2023-05-06',
+    Performance: 32,
+    Resposta: `3.52s`,
+  },
+  {
+    date: '2023-05-07',
+    Performance: 50,
+    Resposta: `3.52s`,
+  },
+  {
+    date: '2023-05-08',
+    Performance: 70,
+    Resposta: `3.52s`,
+  },
+  {
+    date: '2023-05-09',
+    Performance: 92,
+    Resposta: `3.52s`,
+  },
+  {
+    date: '2023-05-07',
+    Performance: 50,
+    Resposta: `3.52s`,
+  },
+];
 
 interface PerformanceChartProps {
   data: any[];
@@ -76,7 +86,7 @@ export function PerformanceChart({ data = [] }: PerformanceChartProps) {
           </Tooltip>
         </TooltipProvider>
       </h1>
-      {data.length === 0 ? (
+      {performance.length === 0 ? (
         <p className="mt-5 text-center text-sm font-light text-gray-300">
           Nenhuma informação de Performance encontrada...
         </p>
@@ -84,10 +94,9 @@ export function PerformanceChart({ data = [] }: PerformanceChartProps) {
         <AreaChart
           {...areaChartArgs}
           className="mt-10 h-52"
-          data={data}
-          categories={['Porcentagem']}
+          data={performance}
+          categories={['Performance']}
           noDataText="Nenhuma informação de Performance encontrada"
-          valueFormatter={(number: number) => `${number}%`}
         />
       )}
     </Card>

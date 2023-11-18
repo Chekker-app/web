@@ -6,6 +6,35 @@ export type IMonitoring = {
   sslDaysRemaining: number;
 };
 
+export interface IUptimeTrackerInfo {
+  day: string;
+  uptime: string;
+  color:
+    | 'slate'
+    | 'gray'
+    | 'zinc'
+    | 'neutral'
+    | 'stone'
+    | 'red'
+    | 'orange'
+    | 'amber'
+    | 'yellow'
+    | 'lime'
+    | 'green'
+    | 'emerald'
+    | 'teal'
+    | 'cyan'
+    | 'sky'
+    | 'blue'
+    | 'indigo'
+    | 'violet'
+    | 'purple'
+    | 'fuchsia'
+    | 'pink'
+    | 'rose';
+  tooltip: Element | string;
+}
+
 export interface IMonitoringDetails {
   id: string;
   name: string;
@@ -23,6 +52,9 @@ export interface IMonitoringDetails {
   main_email: string;
   secondary_email: string;
   terciary_email: string;
+  averageResponseTime: string;
+  monitoringUpTime: string;
+  upTimeTrackerInfo: IUptimeTrackerInfo[];
 }
 
 export enum PageStatusEnum {

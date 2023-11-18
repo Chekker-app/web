@@ -21,37 +21,41 @@ de acordo com o plano √
 
 - Login, Cadastro e recuperar senha √
 
-- Fazer todas as validações de planos
+- Fazer todas as validações de planos √
   - Criar mais monitoramento √
   - Realizar mais testes √
   - Configurações nos detalhes do monitoramento √
 
-- Fazer upgrade do plano
-
-- Criar todas as rotinas para rodar de acordo com cada plano
+- Criar todas as rotinas para rodar de acordo com cada plano √
   - Configurar o banco de dados do firebase para salvar as informações dos logs √
   - Tratar todos os dados e salvar da forma correta √
   - Salvar tudo no firebase √
     - Tempo médio de carregamento √
 
-- Criar funções para enviar os emais
-  - Email de SSL expirando
-  - Email diário de ssl expirando
-  - Email caso a página caiu
+- Criar a rotina de ssl √
+  - 1x por dia √
+  - checa todos os sites √
+  - faz os envios de emails de acordo √
+
+- Criar funções para enviar os emais √
+  - Email de SSL expirando √
+  - Email diário de ssl expirando √
+  - Email caso a página caiu √
 
 - Criar monitoramento de performance
   - Criar collection nova no firebase
     - siteId
     - Date
     - score
-  - Criar função para checar performance
+  - Criar rotina e função para checar performance
     - Salvar no firebase após rodar
 
 - Implementar os logs de monitoramento na tela de detalhes
-  - Uptime
-  - Tempo médio de carregamento
-  - Relatório de Uptime
+  - Uptime √
+  - Tempo médio de carregamento √
+  - Relatório de Uptime √
   - Gráfico de performance
 
+- Fazer upgrade do plano
 - Página de feedbacks
 - Melhorar tela de performance

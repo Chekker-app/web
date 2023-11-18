@@ -49,8 +49,16 @@ export default function Page({ params }: Readonly<MonitoringDetailsProps>) {
             ) : (
               <>
                 <div className="space-y-4">
-                  <MainInfo createdAt={monitoringDetails?.createdAt} />
-                  <UptimeTracker data={[]} />
+                  <MainInfo
+                    createdAt={monitoringDetails?.createdAt}
+                    averageResponseTime={
+                      monitoringDetails?.averageResponseTime ?? ''
+                    }
+                    monitoringUpTime={monitoringDetails?.monitoringUpTime ?? ''}
+                  />
+                  <UptimeTracker
+                    data={monitoringDetails?.upTimeTrackerInfo ?? []}
+                  />
                   <PerformanceChart data={[]} />
                 </div>
                 <div>
