@@ -57,6 +57,7 @@ model Plan {
   quantityEmailsAllowed Int      @default(1)
   intervalMin           Int
   checkSSL              Boolean?
+  sendSslEmails         Boolean?
   sendPageNotifications Boolean?
   User                  User[]
 }

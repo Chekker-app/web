@@ -27,7 +27,7 @@ export function useSettings() {
     field: string,
     value: string | number | boolean,
   ) {
-    if (field === 'email' || (field === 'name' && !value)) {
+    if ((field === 'email' || field === 'name') && !value) {
       return toast({
         variant: 'destructive',
         description: 'Campo não pode ser vázio!',

@@ -28,6 +28,8 @@ export function Configs({ monitoringDetails }: ConfigProps) {
     deleteMonitoringInfo,
     isLoadingDelete,
     updateMonitoringInterval,
+    updateMonitoringSslInfo,
+    updateMonitoringSslRemindersInfo,
   } = useMonitoringDetails({
     monitoringId: monitoringDetails?.id ?? '',
   });
@@ -141,10 +143,8 @@ export function Configs({ monitoringDetails }: ConfigProps) {
               </p>
             </div>
             <Select
-              defaultValue={monitoringDetails?.sslRememberIn.toString()}
-              onValueChange={(value) =>
-                updateMonitoringField('sslRememberIn', Number(value))
-              }
+              value={monitoringDetails?.sslRememberIn.toString()}
+              onValueChange={(value) => updateMonitoringSslInfo(Number(value))}
             >
               <SelectTrigger className="w-[200px]">
                 <SelectValue placeholder="Selecione uma opção" />
@@ -172,9 +172,9 @@ export function Configs({ monitoringDetails }: ConfigProps) {
             </div>
             <Switch
               id="reminds"
-              defaultChecked={monitoringDetails?.sslSendReminders}
+              checked={monitoringDetails?.sslSendReminders}
               onCheckedChange={(value) =>
-                updateMonitoringField('sslSendReminders', value)
+                updateMonitoringSslRemindersInfo(value)
               }
             />
           </div>

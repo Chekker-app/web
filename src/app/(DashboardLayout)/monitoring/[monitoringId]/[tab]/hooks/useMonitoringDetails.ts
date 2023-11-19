@@ -96,6 +96,29 @@ export function useMonitoringDetails({
     return updateMonitoringField('checkIntervalTime', value);
   }
 
+  function updateMonitoringSslInfo(value: number) {
+    if (!user?.Plan?.sendSslEmails) {
+      return toast({
+        variant: 'destructive',
+        description:
+          'Seu plano atual não permite receber alertas sobre a expiração do Certificado SSL',
+      });
+    }
+
+    return updateMonitoringField('sslRememberIn', value);
+  }
+
+  function updateMonitoringSslRemindersInfo(value: boolean) {
+    if (!user?.Plan?.sendSslEmails) {
+      return toast({
+        variant: 'destructive',
+        description:
+          'Seu plano atual não permite receber alertas sobre a expiração do Certificado SSL',
+      });
+    }
+    return updateMonitoringField('sslSendReminders', value);
+  }
+
   async function deleteMonitoringInfo() {
     deleteMonitoringMutation.mutate(monitoringToDelete ?? '', {
       onSuccess: () => {
@@ -117,6 +140,8 @@ export function useMonitoringDetails({
     setMonitoringToDelete,
     deleteMonitoringInfo,
     updateMonitoringInterval,
+    updateMonitoringSslInfo,
+    updateMonitoringSslRemindersInfo,
     isLoadingDelete: deleteMonitoringMutation.isLoading,
   };
 }

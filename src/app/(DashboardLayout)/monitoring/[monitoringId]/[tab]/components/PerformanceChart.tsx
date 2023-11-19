@@ -9,64 +9,30 @@ import {
 import { AreaChart } from '@tremor/react';
 import { Card } from '@/components/ui/card';
 
-export const performance = [
-  {
-    date: '2023-05-01',
-    Performance: 0,
-    Resposta: `3.52s`,
-  },
-  {
-    date: '2023-05-02',
-    Performance: 10,
-    Resposta: `3.52s`,
-  },
-  {
-    date: '2023-05-03',
-    Performance: 15,
-    Resposta: `3.52s`,
-  },
-  {
-    date: '2023-05-04',
-    Performance: 20,
-    Resposta: `3.52s`,
-  },
-  {
-    date: '2023-05-05',
-    Performance: 28,
-    Resposta: `3.52s`,
-  },
-  {
-    date: '2023-05-06',
-    Performance: 32,
-    Resposta: `3.52s`,
-  },
-  {
-    date: '2023-05-07',
-    Performance: 50,
-    Resposta: `3.52s`,
-  },
-  {
-    date: '2023-05-08',
-    Performance: 70,
-    Resposta: `3.52s`,
-  },
-  {
-    date: '2023-05-09',
-    Performance: 92,
-    Resposta: `3.52s`,
-  },
-  {
-    date: '2023-05-07',
-    Performance: 50,
-    Resposta: `3.52s`,
-  },
-];
-
 interface PerformanceChartProps {
   data: any[];
 }
 
 export function PerformanceChart({ data = [] }: PerformanceChartProps) {
+  const customTooltip = ({ payload, active }: any) => {
+    if (!active || !payload) return null;
+    return (
+      <div className="w-64 rounded-tremor-default bg-tremor-background p-2 text-tremor-default shadow-tremor-dropdown">
+        {payload.map((category: any) => (
+          <div key={category.payload.date} className="flex flex-1 px-1">
+            <div className="space-y-1">
+              <p className="text-tremor-content">Performance</p>
+              <p className="font-medium text-tremor-content-emphasis">
+                Tempo médio de resposta:{' '}
+                <span className="font-normal">{category.value}s</span>
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  };
+
   return (
     <Card className="border-b-border p-4 shadow-sm">
       <h1 className="flex items-center gap-2">
@@ -86,7 +52,7 @@ export function PerformanceChart({ data = [] }: PerformanceChartProps) {
           </Tooltip>
         </TooltipProvider>
       </h1>
-      {performance.length === 0 ? (
+      {data.length === 0 ? (
         <p className="mt-5 text-center text-sm font-light text-gray-300">
           Nenhuma informação de Performance encontrada...
         </p>
@@ -94,9 +60,10 @@ export function PerformanceChart({ data = [] }: PerformanceChartProps) {
         <AreaChart
           {...areaChartArgs}
           className="mt-10 h-52"
-          data={performance}
-          categories={['Performance']}
+          data={data}
+          categories={['response']}
           noDataText="Nenhuma informação de Performance encontrada"
+          customTooltip={customTooltip}
         />
       )}
     </Card>

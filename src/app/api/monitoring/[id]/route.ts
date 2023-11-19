@@ -4,7 +4,8 @@ import { decode } from 'next-auth/jwt';
 import { NextRequest, NextResponse } from 'next/server';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../../../../lib/firebase';
-import { getUpTimeTrackerInfo } from '@/utils/uptimeTracker';
+import { getUpTimeTrackerInfo } from '@/app/api/monitoring/[id]/utils/uptimeTracker';
+import { getPerformanceTrackerInfo } from './utils/performanceTracker';
 
 interface ParamsProps {
   params: {
@@ -36,7 +37,10 @@ export async function GET(_: Request, { params }: ParamsProps) {
     (doc) => doc.data().status === 'up',
   ).length;
 
-  const monitoringUpTime = ((totalUp / amountOfLogsInMonth) * 100).toFixed(2);
+  const monitoringUpTime = Math.min(
+    100,
+    (totalUp ?? 0 / amountOfLogsInMonth ?? 0) * 100,
+  ).toFixed(2);
 
   const logsData = logsInMonth.docs.map((doc) => ({
     responseTime: Number(doc.data().responseTime),
@@ -44,10 +48,9 @@ export async function GET(_: Request, { params }: ParamsProps) {
     date: sub(new Date(doc.data().date.toDate()), { hours: 3 }),
   }));
 
-  const totalResponseTime = logsData.reduce(
-    (acc, current) => (acc += current.responseTime),
-    0,
-  );
+  const totalResponseTime = logsData.length
+    ? logsData.reduce((acc, current) => (acc += current.responseTime), 0)
+    : 0;
 
   const averageResponseTime = (
     totalResponseTime /
@@ -56,6 +59,7 @@ export async function GET(_: Request, { params }: ParamsProps) {
   ).toFixed(2);
 
   const upTimeTrackerInfo = getUpTimeTrackerInfo(logsInMonth);
+  const performanceTrackerInfo = getPerformanceTrackerInfo(logsInMonth);
 
   return NextResponse.json({
     ...site,
@@ -72,6 +76,7 @@ export async function GET(_: Request, { params }: ParamsProps) {
     averageResponseTime,
     monitoringUpTime,
     upTimeTrackerInfo,
+    performanceTrackerInfo,
   });
 }
 

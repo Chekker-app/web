@@ -6,6 +6,12 @@ export type IMonitoring = {
   sslDaysRemaining: number;
 };
 
+export interface IPerfromanceTrackerInfo {
+  date: string;
+  performance: string;
+  response: string;
+}
+
 export interface IUptimeTrackerInfo {
   day: string;
   uptime: string;
@@ -55,6 +61,7 @@ export interface IMonitoringDetails {
   averageResponseTime: string;
   monitoringUpTime: string;
   upTimeTrackerInfo: IUptimeTrackerInfo[];
+  performanceTrackerInfo: IPerfromanceTrackerInfo[];
 }
 
 export enum PageStatusEnum {

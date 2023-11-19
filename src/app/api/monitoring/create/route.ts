@@ -1,4 +1,5 @@
 import { prisma } from '@/lib/prisma';
+import axios from 'axios';
 import { decode } from 'next-auth/jwt';
 import { NextRequest, NextResponse } from 'next/server';
 import sslChecker from 'ssl-checker';
@@ -58,14 +59,13 @@ export async function POST(request: NextRequest) {
   const urlToCheckSSLInfo = body.url.replace('https://', '');
   const sslInfo = await sslChecker(urlToCheckSSLInfo);
 
-  // fazer try catch para ver o status do site
+  let pageStatus = 'up';
 
-  await prisma.planUsage.update({
-    where: {
-      userId: userInfo?.id,
-    },
-    data: { monitorings: { increment: 1 } },
-  });
+  try {
+    await axios.get(body.url);
+  } catch (error) {
+    pageStatus = 'down';
+  }
 
   await prisma.site.create({
     data: {
@@ -73,7 +73,7 @@ export async function POST(request: NextRequest) {
       url: body.url,
       checkIntervalTime: userPlanInterval,
       sslDaysRemaining: sslInfo.daysRemaining,
-      sslRememberIn: 0,
+      sslRememberIn: 15,
       sslSendReminders: false,
       sslValidForDomains: String(sslInfo.validFor),
       sslValidFrom: sslInfo.validFrom,
@@ -86,8 +86,15 @@ export async function POST(request: NextRequest) {
       ...(maxAllowedEmails >= 3 && {
         terciary_email: userInfo.terciary_email,
       }),
-      status: 'up',
+      status: pageStatus,
     },
+  });
+
+  await prisma.planUsage.update({
+    where: {
+      userId: userInfo?.id,
+    },
+    data: { monitorings: { increment: 1 } },
   });
 
   return NextResponse.json(

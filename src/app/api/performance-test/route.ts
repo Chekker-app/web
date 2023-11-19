@@ -6,7 +6,6 @@ import {
   getAllCruxMetrics,
 } from './utils';
 import { decode } from 'next-auth/jwt';
-import { prisma } from '@/lib/prisma';
 
 export async function POST(request: NextRequest) {
   const { url } = await request.json();
@@ -19,34 +18,6 @@ export async function POST(request: NextRequest) {
 
   if (!decoded) {
     return NextResponse.redirect(new URL('/login', request.url));
-  }
-
-  const userInfo = await prisma.user.findUniqueOrThrow({
-    where: { id: (decoded?.id as string) || '' },
-    select: {
-      Plan: {
-        select: {
-          performanceTests: true,
-        },
-      },
-      PlanUsage: {
-        select: { performanceTests: true },
-      },
-      id: true,
-    },
-  });
-
-  if (
-    Number(userInfo.PlanUsage?.performanceTests) + 1 >
-    Number(userInfo.Plan?.performanceTests)
-  ) {
-    return NextResponse.json(
-      {
-        message:
-          'Não foi possível realizar mais testes. Seu plano atual não permite.',
-      },
-      { status: 403 },
-    );
   }
 
   try {

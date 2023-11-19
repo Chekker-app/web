@@ -59,7 +59,9 @@ export default function Page({ params }: Readonly<MonitoringDetailsProps>) {
                   <UptimeTracker
                     data={monitoringDetails?.upTimeTrackerInfo ?? []}
                   />
-                  <PerformanceChart data={[]} />
+                  <PerformanceChart
+                    data={monitoringDetails?.performanceTrackerInfo ?? []}
+                  />
                 </div>
                 <div>
                   <SSLInfo monitoringDetails={monitoringDetails ?? null} />
