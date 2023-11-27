@@ -19,13 +19,7 @@ export function Sidebar() {
                 icon={Gauge}
               />
             </li>
-            <li>
-              <NavLink
-                href="/feedbacks"
-                title="Feedback"
-                icon={MessageCircle}
-              />
-            </li>
+
             <li>
               <NavLink href="/settings/billing" title="Plano" icon={Wallet} />
             </li>
@@ -34,6 +28,13 @@ export function Sidebar() {
                 href="/settings/geral"
                 title="Configurações"
                 icon={Settings}
+              />
+            </li>
+            <li>
+              <NavLink
+                href="/feedbacks"
+                title="Feedback"
+                icon={MessageCircle}
               />
             </li>
           </ul>

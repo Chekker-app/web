@@ -48,15 +48,15 @@ export async function GET(_: Request, { params }: ParamsProps) {
     date: sub(new Date(doc.data().date.toDate()), { hours: 3 }),
   }));
 
-  const totalResponseTime = logsData.length
-    ? logsData.reduce((acc, current) => (acc += current.responseTime), 0)
-    : 0;
+  const totalResponseTime =
+    logsData.length > 0
+      ? logsData.reduce((acc, current) => (acc += current.responseTime), 0)
+      : 0;
 
-  const averageResponseTime = (
-    totalResponseTime /
-    logsData.length /
-    1000
-  ).toFixed(2);
+  const averageResponseTime =
+    logsData.length > 0
+      ? (totalResponseTime / logsData.length ?? 0 / 1000).toFixed(2)
+      : 0;
 
   const upTimeTrackerInfo = getUpTimeTrackerInfo(logsInMonth);
   const performanceTrackerInfo = getPerformanceTrackerInfo(logsInMonth);
