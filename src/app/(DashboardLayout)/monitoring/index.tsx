@@ -34,7 +34,7 @@ export function MonitoringList() {
       <div className="mt-6">
         {!isLoadingMonitorings && (
           <p className="text-md leading-tight">
-            Quantidade de sites sendo monitorados: {monitorings.length}
+            Quantidade de páginas sendo monitoradas: {monitorings.length}
           </p>
         )}
         <div className="mt-3 rounded-md border border-b-border">
@@ -67,7 +67,7 @@ export function MonitoringList() {
             } border-b-border px-7 py-5 hover:bg-muted`}
           >
             <PlusIcon size={22} />
-            Adicionar novo
+            Adicionar nova
           </button>
         </div>
       </div>

@@ -41,7 +41,7 @@ export function useMonitoringDetails({
     onError: (error: any) => {
       toast({
         variant: 'destructive',
-        description: String(error),
+        description: String(error.message),
       });
     },
   });
@@ -52,7 +52,7 @@ export function useMonitoringDetails({
     onError: (error: any) => {
       toast({
         variant: 'destructive',
-        description: String(error),
+        description: String(error.message),
       });
     },
   });
@@ -71,7 +71,7 @@ export function useMonitoringDetails({
     onError: (error: any) => {
       toast({
         variant: 'destructive',
-        description: String(error),
+        description: String(error.message),
       });
     },
   });

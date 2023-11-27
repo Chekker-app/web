@@ -90,7 +90,7 @@ export async function POST(request: NextRequest) {
     },
   });
 
-  await prisma.planUsage.update({
+  await prisma.subscription.update({
     where: {
       userId: userInfo?.id,
     },

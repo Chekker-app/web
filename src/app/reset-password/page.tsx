@@ -1,18 +1,39 @@
 'use client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { signIn } from 'next-auth/react';
-import { FormEvent } from 'react';
+import { useToast } from '@/components/ui/use-toast';
+import { api } from '@/lib/api';
+import { Loader2 } from 'lucide-react';
+import { FormEvent, useState } from 'react';
 
 export default function Login() {
+  const { toast } = useToast();
+  const [isLoading, setIsLoading] = useState(false);
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    setIsLoading(true);
     event.preventDefault();
+    const formData = new FormData(event.currentTarget);
 
-    await signIn('credentials', {
-      email: 'bomdia@gmail.com',
-      password: 'bomdia',
-      callbackUrl: '/',
-    });
+    try {
+      await api.post('/auth/reset-password', { email: formData.get('email') });
+      toast({
+        variant: 'success',
+        description:
+          'Redefinição feita com sucesso! Sua nova senha foi enviada para o e-mail informado.',
+      });
+
+      setTimeout(() => {
+        return window.location.replace('/login');
+      }, 2000);
+    } catch (error) {
+      toast({
+        variant: 'destructive',
+        description:
+          'Não foi possível redefinir sua senha! Verifique os dados e tente novamente',
+      });
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
@@ -35,7 +56,9 @@ export default function Login() {
           <Button
             className="mt-12 w-full bg-primary text-white hover:opacity-90"
             size="lg"
+            disabled={isLoading}
           >
+            {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             Recuperar senha
           </Button>
           <p className="mt-10 text-center text-sm text-foreground">

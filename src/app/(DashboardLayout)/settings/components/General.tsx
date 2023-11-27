@@ -4,10 +4,20 @@ import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { useSettings } from '../hooks/useSettings';
 import { useAuth } from '@/context/AuthContext';
+import { Button } from '@tremor/react';
+import { Loader2 } from 'lucide-react';
 
 export function GeneralConfigs() {
   const { user } = useAuth();
-  const { updateUserInfo } = useSettings();
+  const {
+    updateUserInfo,
+    onChangePassword,
+    changePasswordMutation,
+    currentPassword,
+    setCurrentPassword,
+    newPassword,
+    setNewPassword,
+  } = useSettings();
   return (
     <div className="m-auto max-w-3xl rounded-md border border-b-border bg-background px-7 py-4">
       <div className="flex items-center justify-between">
@@ -91,6 +101,45 @@ export function GeneralConfigs() {
             }
           />
         </div>
+      </div>
+
+      <Separator className="my-4 bg-zinc-400/40" />
+      <div className="flex justify-between">
+        <div className="max-w-[250px]">
+          <p className="font-semibold text-card-foreground">Alterar senha</p>
+          <p className="mt-1 text-sm font-light text-gray-400">
+            Insira sua senha atual e a nova senha desejada para poder efetuar a
+            alteração
+          </p>
+        </div>
+        <form
+          onSubmit={onChangePassword}
+          className="w-full max-w-[250px] space-y-4"
+        >
+          <Input
+            placeholder="Senha atual"
+            name="current_password"
+            type="password"
+            value={currentPassword}
+            onChange={(event) => setCurrentPassword(event.target.value)}
+          />
+          <Input
+            placeholder="Nova senha"
+            name="new_password"
+            type="password"
+            value={newPassword}
+            onChange={(event) => setNewPassword(event.target.value)}
+          />
+
+          <div className="flex w-full justify-end">
+            <Button type="submit" disabled={changePasswordMutation.isLoading}>
+              {changePasswordMutation.isLoading && (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              )}
+              Alterar senha
+            </Button>
+          </div>
+        </form>
       </div>
     </div>
   );

@@ -1,17 +1,41 @@
 'use client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { useToast } from '@/components/ui/use-toast';
+import { Loader2 } from 'lucide-react';
 import { signIn } from 'next-auth/react';
-import { FormEvent } from 'react';
+import { FormEvent, useState } from 'react';
 
 export default function Login() {
+  const { toast } = useToast();
+  const [isLoading, setIsLoading] = useState(false);
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    setIsLoading(true);
     event.preventDefault();
 
-    await signIn('credentials', {
-      email: 'bomdia@gmail.com',
-      password: 'bomdia',
-      callbackUrl: '/',
+    const formData = new FormData(event.currentTarget);
+
+    signIn('credentials', {
+      email: formData.get('email'),
+      password: formData.get('password'),
+      redirect: false,
+    }).then(({ ok }: any) => {
+      if (ok) {
+        setIsLoading(false);
+        toast({
+          variant: 'success',
+          description:
+            'Login efetuado com sucesso! Estamos redirecionando você para a tela inicial.',
+        });
+        return window.location.replace('/');
+      } else {
+        setIsLoading(false);
+        toast({
+          variant: 'destructive',
+          description:
+            'Não foi possível fazer login. Verifique os dados e tente novamente!',
+        });
+      }
     });
   }
 
@@ -31,9 +55,9 @@ export default function Login() {
           </div>
           <div className="mt-8 space-y-8">
             <Input name="email" type="email" placeholder="Email cadastrado" />
-            <Input name="email" type="password" placeholder="Senha" />
+            <Input name="password" type="password" placeholder="Senha" />
           </div>
-          {/* <p className="mt-8 text-right text-xs text-foreground">
+          <p className="mt-8 text-right text-xs text-foreground">
             Esqueceu sua senha?
             <a
               href="/reset-password"
@@ -41,11 +65,13 @@ export default function Login() {
             >
               Redefina
             </a>
-          </p> */}
+          </p>
           <Button
             className="mt-12 w-full bg-primary text-white hover:opacity-90"
             size="lg"
+            disabled={isLoading}
           >
+            {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             Entrar na minha conta
           </Button>
           <p className="mt-10 text-center text-sm text-foreground">

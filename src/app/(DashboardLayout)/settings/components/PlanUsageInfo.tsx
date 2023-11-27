@@ -37,12 +37,13 @@ export function PlanUsageInfo() {
             <div className="flex justify-between">
               <p>Páginas Monitoradas</p>
               <p>
-                {user?.PlanUsage?.monitorings}/{user?.Plan?.monitorings}
+                {user?.Subscription?.monitorings}/{user?.Plan?.monitorings}
               </p>
             </div>
             <Progress
               value={
-                (100 / user?.Plan?.monitorings) * user?.PlanUsage?.monitorings
+                (100 / user?.Plan?.monitorings) *
+                user?.Subscription?.monitorings
               }
               className="h-2.5 w-full"
             />
@@ -52,14 +53,14 @@ export function PlanUsageInfo() {
             <div className="flex justify-between">
               <p>Testes automáticos realizados</p>
               <p>
-                {user?.PlanUsage?.performanceTests}/
+                {user?.Subscription?.performanceTests}/
                 {user?.Plan?.performanceTests}
               </p>
             </div>
             <Progress
               value={
                 (100 / user?.Plan?.performanceTests) *
-                user?.PlanUsage?.performanceTests
+                user?.Subscription?.performanceTests
               }
               className="h-2.5 w-full"
             />
@@ -69,14 +70,14 @@ export function PlanUsageInfo() {
             <div className="flex justify-between">
               <p>Emails para atualizações</p>
               <p>
-                {user?.PlanUsage?.usedEmails}/
+                {user?.Subscription?.usedEmails}/
                 {user?.Plan?.quantityEmailsAllowed}
               </p>
             </div>
             <Progress
               value={
                 (100 / user?.Plan?.quantityEmailsAllowed) *
-                user?.PlanUsage?.usedEmails
+                user?.Subscription?.usedEmails
               }
               className="h-2.5 w-full"
             />

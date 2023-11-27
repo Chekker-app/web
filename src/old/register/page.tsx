@@ -1,18 +1,10 @@
-'use client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { signIn } from 'next-auth/react';
 import { FormEvent } from 'react';
 
 export default function Register() {
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-
-    await signIn('credentials', {
-      email: 'bomdia@gmail.com',
-      password: 'bomdia',
-      callbackUrl: '/',
-    });
   }
 
   return (

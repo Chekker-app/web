@@ -1,7 +1,7 @@
 'use client';
 
 import { api } from '@/lib/api';
-import { Plan, PlanUsage } from '@prisma/client';
+import { Plan, Subscription } from '@prisma/client';
 import {
   ReactNode,
   createContext,
@@ -17,7 +17,7 @@ type User = {
   terciary_email?: string;
   Plan: Plan;
   weeklyReports: boolean;
-  PlanUsage: PlanUsage;
+  Subscription: Subscription;
   shortName: string;
 };
 

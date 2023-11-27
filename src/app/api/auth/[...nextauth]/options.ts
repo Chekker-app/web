@@ -1,5 +1,9 @@
+import { prisma } from '@/lib/prisma';
 import { type NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import bcrypt from 'bcrypt';
+
+// pass 5Ywfacg3
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -18,23 +22,24 @@ export const authOptions: NextAuthOptions = {
         },
       },
       async authorize(credentials) {
-        // buscar o usuário no banco de dados
-        // comparar as senhas para ver se batem
-        // se não tiver usuário, ou a senha não bater, retornar null
+        const user = await prisma.user.findUnique({
+          where: { email: credentials?.email },
+        });
 
-        const user = {
-          id: 'ee7a3054-8e14-4940-a23e-7701bfe1cecd',
-          email: 'feliper.silva011@gmail.com',
-          password: 'bomdia',
-          name: 'Felipe Silva',
-          weeklyReports: false,
-        };
-
-        if (credentials?.password === user.password) {
-          return user;
-        } else {
+        if (!user) {
           return null;
         }
+
+        const matchPassword = bcrypt.compareSync(
+          credentials?.password ?? '',
+          user.password ?? '',
+        );
+
+        if (!matchPassword) {
+          return null;
+        }
+
+        return user;
       },
     }),
   ],

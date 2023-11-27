@@ -70,9 +70,7 @@ export async function PATCH(request: NextRequest) {
       }
     });
 
-    console.log('USED', usedEmailsQuantity);
-
-    await prisma.planUsage.update({
+    await prisma.subscription.update({
       where: { userId: userInfo?.id },
       data: { usedEmails: usedEmailsQuantity },
     });

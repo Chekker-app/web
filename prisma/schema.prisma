@@ -11,19 +11,20 @@ datasource db {
 }
 
 model User {
-  id              String     @id @default(uuid())
+  id              String        @id @default(uuid())
   name            String
-  email           String
+  email           String        @unique
+  password        String?
   secondary_email String?
   terciary_email  String?
-  avatarUrl       String
-  firebaseToken   String
-  weeklyReports   Boolean    @default(false)
+  avatarUrl       String?
+  firebaseToken   String?
+  weeklyReports   Boolean       @default(false)
   Site            Site[]
-  Plan            Plan?      @relation(fields: [planId], references: [id])
+  Plan            Plan?         @relation(fields: [planId], references: [id])
   planId          String?
-  PlanUsage       PlanUsage?
-  planUsageId     String?
+  Subscription    Subscription?
+  subscriptionId  String?
 }
 
 model Site {
@@ -62,11 +63,15 @@ model Plan {
   User                  User[]
 }
 
-model PlanUsage {
-  id               String  @id @default(uuid())
+model Subscription {
+  id               String   @id @default(uuid())
+  status           String?
   monitorings      Int
   performanceTests Int
-  usedEmails       Int     @default(1)
-  userId           String? @unique
-  User             User?   @relation(fields: [userId], references: [id])
+  usedEmails       Int      @default(1)
+  price            Int?
+  purchaseDate     DateTime @default(now())
+  renewalDate      DateTime @default(now())
+  userId           String?  @unique
+  User             User?    @relation(fields: [userId], references: [id])
 }
