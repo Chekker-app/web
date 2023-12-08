@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react';
 import { Sidebar } from '@/components/Sidebar';
 import { ReactNode } from 'react';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -17,6 +18,7 @@ export default async function DashboardLayout({
           <section className="px-5 py-10">{children}</section>
         </ScrollArea>
       </div>
+      <Analytics />
     </main>
   );
 }

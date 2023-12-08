@@ -10,8 +10,9 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: 'PageCheck',
-  description: 'Check if your page is up',
+  title: 'Chekker | Monitoramento de Páginas',
+  description:
+    'Chekker é a solução perfeita para monitorar a disponibilidade das suas páginas. Receba alertas instantâneos caso uma de suas páginas caia. Ganhe tempo centralizando o monitoramento de suas páginas em um só lugar com a Chekker.',
 };
 
 export default async function RootLayout({
