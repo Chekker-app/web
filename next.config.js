@@ -4,9 +4,10 @@ const nextConfig = {
     domains: [
       'localhost:3000/*',
       '192.168.1.100',
-      'app.chekker.com.br',
-      'http://app.chekker.com.br',
-      'https://app.chekker.com.br',
+      'https://app.chekker.com.br/*',
+      'app.chekker.com.br/*',
+      'http://app.chekker.com.br/*',
+      'https://app.chekker.com.br/*',
     ],
   },
 };
