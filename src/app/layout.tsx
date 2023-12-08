@@ -13,6 +13,7 @@ export const metadata: Metadata = {
   title: 'Chekker | Monitoramento de Páginas',
   description:
     'Chekker é a solução perfeita para monitorar a disponibilidade das suas páginas. Receba alertas instantâneos caso uma de suas páginas caia. Ganhe tempo centralizando o monitoramento de suas páginas em um só lugar com a Chekker.',
+  icons: '/favicon.ico',
 };
 
 export default async function RootLayout({

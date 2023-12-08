@@ -2,8 +2,7 @@
 const nextConfig = {
   images: {
     domains: [
-      'images.freeimages.com',
-      'localhost',
+      'localhost:3000/*',
       '192.168.1.100',
       'app.chekker.com.br',
       'http://app.chekker.com.br',
