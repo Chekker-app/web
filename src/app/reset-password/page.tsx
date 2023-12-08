@@ -49,7 +49,7 @@ export default function Login() {
             height={0}
             sizes="100vw"
             style={{
-              width: '70%',
+              width: '80%',
               margin: '0 auto',
             }}
           />

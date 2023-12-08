@@ -52,7 +52,7 @@ export default function Login() {
             height={0}
             sizes="100vw"
             style={{
-              width: '70%',
+              width: '80%',
               margin: '0 auto',
             }}
           />
@@ -89,7 +89,7 @@ export default function Login() {
           <p className="mt-10 text-center text-sm text-foreground">
             Ainda não tem cadastro?
             <a
-              href="https://facebook.com"
+              href="https://chekker.com.br"
               target="_blank"
               rel="noreferrer noopen"
               className="ml-1 text-primary hover:opacity-60"
