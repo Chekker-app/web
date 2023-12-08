@@ -1,6 +1,7 @@
 // bcrypt.hashSync(myPlaintextPassword, saltRounds);
 import { prisma } from '@/lib/prisma';
 import { generatePassword } from '@/utils/password';
+import { User } from '@prisma/client';
 import bcrypt from 'bcrypt';
 import { add } from 'date-fns';
 import { NextRequest, NextResponse } from 'next/server';
@@ -26,7 +27,7 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  let user = null;
+  let user: User | null = null;
 
   user = await prisma.user.findUnique({
     where: { email: webhook.data.buyer.email },

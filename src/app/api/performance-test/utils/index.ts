@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import {
   CORE_LIGHTHOUSE_METRICS,
   CUSTOM_SORTING_EXPERIENCE_ORDER,
