@@ -6,6 +6,7 @@ import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../../../../lib/firebase';
 import { getUpTimeTrackerInfo } from '@/app/api/monitoring/[id]/utils/uptimeTracker';
 import { getPerformanceTrackerInfo } from './utils/performanceTracker';
+import { getPerformanceTestsTrackerInfo } from './utils/performanceTestsTracker';
 
 interface ParamsProps {
   params: {
@@ -21,6 +22,7 @@ export async function GET(_: Request, { params }: ParamsProps) {
   });
 
   const logsCollection = collection(db, 'logs');
+  const performanceTestCollection = collection(db, 'performance_test');
   const dataInicial = new Date();
   dataInicial.setDate(dataInicial.getDate() - 30);
 
@@ -30,7 +32,14 @@ export async function GET(_: Request, { params }: ParamsProps) {
     where('date', '>=', dataInicial),
   );
 
+  const performanceTestQuery = query(
+    performanceTestCollection,
+    where('siteId', '==', params.id),
+    where('date', '>=', dataInicial),
+  );
+
   const logsInMonth = await getDocs(q);
+  const performanceTestsInMonth = await getDocs(performanceTestQuery);
 
   const amountOfLogsInMonth = logsInMonth.size;
   const totalUp = logsInMonth.docs.filter(
@@ -60,6 +69,9 @@ export async function GET(_: Request, { params }: ParamsProps) {
 
   const upTimeTrackerInfo = getUpTimeTrackerInfo(logsInMonth);
   const performanceTrackerInfo = getPerformanceTrackerInfo(logsInMonth);
+  const performanceTestsTrackerInfo = getPerformanceTestsTrackerInfo(
+    performanceTestsInMonth,
+  );
 
   return NextResponse.json({
     ...site,
@@ -77,6 +89,7 @@ export async function GET(_: Request, { params }: ParamsProps) {
     monitoringUpTime,
     upTimeTrackerInfo,
     performanceTrackerInfo,
+    performanceTestsTrackerInfo,
   });
 }
 

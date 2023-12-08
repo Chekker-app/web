@@ -12,6 +12,7 @@ import { MonitoringDetailsSkeleton } from './components/MonitoringDetailsSkeleto
 import { HeaderSkeleton } from './components/HeaderSkeleton';
 import { Configs } from './components/Configs';
 import { IMonitoringDetails } from '../../types';
+import { PerformanceTestsChart } from './components/PerformanceTestsChart';
 
 interface MonitoringDetailsProps {
   params: {
@@ -61,6 +62,9 @@ export default function Page({ params }: Readonly<MonitoringDetailsProps>) {
                   />
                   <PerformanceChart
                     data={monitoringDetails?.performanceTrackerInfo ?? []}
+                  />
+                  <PerformanceTestsChart
+                    data={monitoringDetails?.performanceTestsTrackerInfo ?? []}
                   />
                 </div>
                 <div>

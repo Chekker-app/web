@@ -13,7 +13,7 @@ interface PerformanceChartProps {
   data: any[];
 }
 
-export function PerformanceChart({ data = [] }: PerformanceChartProps) {
+export function PerformanceTestsChart({ data = [] }: PerformanceChartProps) {
   const customTooltip = ({ payload, active }: any) => {
     if (!active || !payload) return null;
     return (
@@ -23,8 +23,7 @@ export function PerformanceChart({ data = [] }: PerformanceChartProps) {
             <div className="space-y-1">
               <p className="text-tremor-content">Performance</p>
               <p className="font-medium text-tremor-content-emphasis">
-                Tempo médio de resposta:{' '}
-                <span className="font-normal">{category.value}s</span>
+                Score: <span className="font-normal">{category.value}</span>
               </p>
             </div>
           </div>
@@ -36,7 +35,7 @@ export function PerformanceChart({ data = [] }: PerformanceChartProps) {
   return (
     <Card className="border-b-border p-4 shadow-sm">
       <h1 className="flex items-center gap-2">
-        Tempo Médio de Resposta
+        Gráfico de Performance
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger>
@@ -44,7 +43,8 @@ export function PerformanceChart({ data = [] }: PerformanceChartProps) {
             </TooltipTrigger>
             <TooltipContent className="shadow-md">
               <p className="max-w-xs">
-                Mostra o tempo médio de carregamento da sua página no dia.
+                O Gráfico de Performance mostra a média do score da sua página
+                no dia de acordo com o score gerado pelo Google.
               </p>
             </TooltipContent>
           </Tooltip>
@@ -52,14 +52,14 @@ export function PerformanceChart({ data = [] }: PerformanceChartProps) {
       </h1>
       {data.length === 0 ? (
         <p className="mt-5 text-center text-sm font-light text-gray-300">
-          Nenhuma informação de carregamento encontrada...
+          Nenhuma informação de Performance encontrada...
         </p>
       ) : (
         <AreaChart
           {...areaChartArgs}
           className="mt-10 h-52"
           data={data}
-          categories={['response']}
+          categories={['score']}
           noDataText="Nenhuma informação de Performance encontrada"
           customTooltip={customTooltip}
         />

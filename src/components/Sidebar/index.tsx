@@ -1,13 +1,25 @@
 import { Settings, Gauge, Activity, Wallet, MessageCircle } from 'lucide-react';
 import { NavLink } from './NavLink';
 import { Profile } from '../Profile';
+import Image from 'next/image';
 
 export function Sidebar() {
   return (
-    <aside className="flex max-h-screen w-64 flex-col justify-between border-r bg-background px-4 py-5">
+    <aside className="flex max-h-screen w-64 flex-col justify-between border-r bg-background px-4 py-8">
       <div>
-        <h1 className="mt-3 pl-3 text-2xl">MyPageUp</h1>
-        <div className="mt-12 text-gray-100">
+        <Image
+          src="/logo.png"
+          alt="Chekker"
+          draggable={false}
+          width={0}
+          height={0}
+          sizes="100vw"
+          style={{
+            width: '80%',
+            margin: '0 auto',
+          }}
+        />
+        <div className="mt-10 text-gray-100">
           <ul className="flex flex-col gap-4">
             <li>
               <NavLink href="/" title="Monitoramento" icon={Activity} />

@@ -33,6 +33,8 @@ export async function POST(request: NextRequest) {
 
     const lighthouse = data?.lighthouseResult;
 
+    const finalScreenshot = lighthouse?.audits['final-screenshot'];
+
     const loadingExperienceMetrics = getAllCruxMetrics(
       data?.loadingExperience?.metrics || {},
     );
@@ -50,7 +52,7 @@ export async function POST(request: NextRequest) {
     const extras = {
       pageScreenshot: {
         nodes: lighthouse?.fullPageScreenshot?.nodes,
-        img: lighthouse?.fullPageScreenshot?.screenshot?.data,
+        img: finalScreenshot?.details?.data,
         width: lighthouse?.fullPageScreenshot?.screenshot?.width,
         height: lighthouse?.fullPageScreenshot?.screenshot?.height,
       },

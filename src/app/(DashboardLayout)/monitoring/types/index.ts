@@ -12,6 +12,11 @@ export interface IPerfromanceTrackerInfo {
   response: string;
 }
 
+export interface IPerformanceTestsTrackerInfo {
+  date: string;
+  score: number;
+}
+
 export interface IUptimeTrackerInfo {
   day: string;
   uptime: string;
@@ -62,6 +67,7 @@ export interface IMonitoringDetails {
   monitoringUpTime: string;
   upTimeTrackerInfo: IUptimeTrackerInfo[];
   performanceTrackerInfo: IPerfromanceTrackerInfo[];
+  performanceTestsTrackerInfo: IPerformanceTestsTrackerInfo[];
 }
 
 export enum PageStatusEnum {

@@ -5,6 +5,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { Loader2 } from 'lucide-react';
 import { signIn } from 'next-auth/react';
 import { FormEvent, useState } from 'react';
+import Image from 'next/image';
 
 export default function Login() {
   const { toast } = useToast();
@@ -43,7 +44,18 @@ export default function Login() {
     <section className="flex min-h-screen w-full flex-1 items-center justify-center bg-background">
       <div className="w-[420px] rounded-2xl border px-10 py-14">
         <div className="flex flex-col">
-          <h1 className="text-5xl font-bold text-primary">MyPageUp</h1>
+          <Image
+            src="/logo.png"
+            alt="Chekker"
+            draggable={false}
+            width={0}
+            height={0}
+            sizes="100vw"
+            style={{
+              width: '70%',
+              margin: '0 auto',
+            }}
+          />
         </div>
 
         <form className="mt-12" onSubmit={handleSubmit}>

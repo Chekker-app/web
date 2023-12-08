@@ -81,6 +81,7 @@ export async function POST(request: NextRequest) {
         purchaseDate: creationDate,
         renewalDate,
         userId: user?.id,
+        performanceTests: 0,
       };
 
       await prisma.subscription.update({

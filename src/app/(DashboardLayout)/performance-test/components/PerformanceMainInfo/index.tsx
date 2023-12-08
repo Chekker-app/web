@@ -64,9 +64,9 @@ export function PerformanceMainInfo({
         <Image
           alt="Printscreen do site analisado"
           className="rounded-lg border border-border p-1"
-          width={450}
-          height={400}
-          src="https://images.freeimages.com/images/large-previews/3b2/prague-conference-center-1056491.jpg"
+          width={336}
+          height={236}
+          src={siteScreenshot}
         />
       </div>
     </div>

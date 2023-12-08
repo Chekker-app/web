@@ -9,5 +9,3 @@
     - Salvar no firebase após rodar
 
 - Fazer upgrade do plano
-- Página de feedbacks
-- Melhorar tela de performance
