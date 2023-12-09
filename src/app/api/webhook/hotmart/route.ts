@@ -44,8 +44,6 @@ export async function POST(request: NextRequest) {
     if (!user) {
       const password = generatePassword();
 
-      console.log('PASS', password);
-
       const createdUser = await prisma.user.create({
         data: {
           email: webhook.data.buyer.email,
