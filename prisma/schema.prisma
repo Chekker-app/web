@@ -26,6 +26,8 @@ model User {
   planId          String?
   Subscription    Subscription?
   subscriptionId  String?
+
+  @@index([planId])
 }
 
 model Site {
@@ -48,6 +50,8 @@ model Site {
 
   userId String
   user   User   @relation(fields: [userId], references: [id])
+
+  @@index([userId])
 }
 
 model Plan {
