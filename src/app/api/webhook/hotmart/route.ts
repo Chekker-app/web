@@ -5,6 +5,7 @@ import { User } from '@prisma/client';
 import bcrypt from 'bcrypt';
 import { add } from 'date-fns';
 import { NextRequest, NextResponse } from 'next/server';
+import { transporter } from '@/lib/nodemailer';
 
 const SUBSCRIPTION_STATUS = {
   PURCHASE_CHARGEBACK: 'CHARGEBACK',
@@ -73,6 +74,27 @@ export async function POST(request: NextRequest) {
         where: { id: createdUser.id },
         data: { subscriptionId: createdSubscription.id },
       });
+
+      let message = `Olá ${webhook.data.buyer.name}, \n\n Seja bem-vindo ao Chekker!\n\n`;
+      message += `Agradecemos por se juntar a nós para monitorar suas páginas de destino de forma eficaz e simplificada. Com o Upcat, você terá acesso a monitoramento preciso, alertas instantâneos sobre a disponibilidade das suas páginas e melhorias significativas no desempenho do seu site.\n\n`;
+      message += `Aqui estão suas credenciais de acesso:\n\n`;
+      message += `- Link de Acesso: https://app.chekker.com.br\n`;
+      message += `- E-mail: ${webhook.data.buyer.email}\n`;
+      message += `- Senha: ${password}\n`;
+      message += `Comece agora mesmo a aproveitar todos os benefícios que o Upcat tem a oferecer para otimizar a performance do seu site!\n\n`;
+      message += `Se tiver alguma dúvida ou precisar de assistência, estamos sempre aqui para ajudar.\n\n`;
+      message += `Obrigado por fazer parte da nossa comunidade!\n\n`;
+      message += `Atenciosamente,\nEquipe Chekker`;
+
+      await transporter.sendMail({
+        from: {
+          name: 'Chekker',
+          address: 'contato@chekker.com.br',
+        },
+        to: webhook.data.buyer.email,
+        subject: `Seja bem-vindo ao Chekker`,
+        text: message,
+      });
     }
 
     if (user) {
@@ -122,5 +144,3 @@ export async function POST(request: NextRequest) {
 
   return NextResponse.json({ message: 'successfull' }, { status: 200 });
 }
-
-// verificar pq n chegou email

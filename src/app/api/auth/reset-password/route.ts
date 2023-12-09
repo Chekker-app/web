@@ -27,8 +27,8 @@ export async function POST(request: NextRequest) {
 
   await transporter.sendMail({
     from: {
-      name: 'MyPageUp',
-      address: 'contato@convenmais.com.br',
+      name: 'Chekker',
+      address: 'contato@chekker.com.br',
     },
     to: body.email,
     subject: `Redefinição de senha da sua conta`,
