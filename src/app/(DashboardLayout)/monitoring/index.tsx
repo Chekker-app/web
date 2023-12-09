@@ -47,7 +47,7 @@ export function MonitoringList() {
             </>
           ) : (
             <ScrollArea>
-              {monitorings.map((item, index) => {
+              {monitorings?.map((item, index) => {
                 const isLastItemToRender = index + 1 === monitorings.length;
                 return (
                   <MonitoringItem

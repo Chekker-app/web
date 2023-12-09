@@ -1,14 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { decode } from 'next-auth/jwt';
+import { getToken } from 'next-auth/jwt';
 import { prisma } from '@/lib/prisma';
 
 export async function PATCH(request: NextRequest) {
   const body = await request.json();
-  const token = request.cookies.get('next-auth.session-token')?.value;
-
-  const decoded = await decode({
-    token: token,
-    secret: process.env.NEXTAUTH_SECRET ?? '',
+  const decoded = await getToken({
+    req: request,
+    secret: process.env.NEXTAUTH_SECRET,
   });
 
   if (!decoded) {

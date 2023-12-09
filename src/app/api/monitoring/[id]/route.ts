@@ -1,6 +1,6 @@
 import { prisma } from '@/lib/prisma';
 import { add, format, sub } from 'date-fns';
-import { decode } from 'next-auth/jwt';
+import { getToken } from 'next-auth/jwt';
 import { NextRequest, NextResponse } from 'next/server';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../../../../lib/firebase';
@@ -95,11 +95,10 @@ export async function GET(_: Request, { params }: ParamsProps) {
 
 export async function PATCH(request: NextRequest, { params }: ParamsProps) {
   const body = await request.json();
-  const token = request.cookies.get('next-auth.session-token')?.value;
 
-  const decoded = await decode({
-    token: token,
-    secret: process.env.NEXTAUTH_SECRET ?? '',
+  const decoded = await getToken({
+    req: request,
+    secret: process.env.NEXTAUTH_SECRET,
   });
 
   if (!decoded) {

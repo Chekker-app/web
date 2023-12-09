@@ -5,16 +5,15 @@ import {
   getAllCoreLighthouseMetrics,
   getAllCruxMetrics,
 } from './utils';
-import { decode } from 'next-auth/jwt';
+import { getToken } from 'next-auth/jwt';
 
 export async function POST(request: NextRequest) {
-  const { url } = await request.json();
-  const token = request.cookies.get('next-auth.session-token')?.value;
-
-  const decoded = await decode({
-    token: token,
-    secret: process.env.NEXTAUTH_SECRET ?? '',
+  const decoded = await getToken({
+    req: request,
+    secret: process.env.NEXTAUTH_SECRET,
   });
+
+  const { url } = await request.json();
 
   if (!decoded) {
     return NextResponse.redirect(new URL('/login', request.url));

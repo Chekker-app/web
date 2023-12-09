@@ -93,7 +93,7 @@ export function useMonitoring() {
     setIsOpenDialog,
     isCreatingMonitoring,
     handleSubmit,
-    monitorings,
+    monitorings: monitorings.length > 0 ? monitorings : [],
     isLoadingMonitorings,
     monitoringToDelete,
     setMonitoringToDelete,

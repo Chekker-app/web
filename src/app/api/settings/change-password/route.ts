@@ -1,22 +1,15 @@
 import { prisma } from '@/lib/prisma';
-import { decode } from 'next-auth/jwt';
 import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcrypt';
+import { getToken } from 'next-auth/jwt';
 
 export async function PATCH(request: NextRequest) {
   const body = await request.json();
-  console.log('COOOOKIES', request.cookies.get('next-auth.session-token'));
-  console.log('COOOOKIES ALL', request.cookies.getAll());
-  const token = request.cookies.get('next-auth.session-token')?.value;
 
-  console.log('TOKEN', token);
-
-  const decoded = await decode({
-    token: token,
-    secret: process.env.NEXTAUTH_SECRET ?? '',
+  const decoded = await getToken({
+    req: request,
+    secret: process.env.NEXTAUTH_SECRET,
   });
-
-  console.log('DECODED', decoded);
 
   if (!decoded) {
     return NextResponse.redirect(new URL('/login', request.url));

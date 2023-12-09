@@ -1,17 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { collection, addDoc } from 'firebase/firestore';
-import { decode } from 'next-auth/jwt';
+import { getToken } from 'next-auth/jwt';
 import { prisma } from '@/lib/prisma';
 import { db } from '@/lib/firebase';
 
 export async function POST(request: NextRequest) {
   const { title, description } = await request.json();
 
-  const token = request.cookies.get('next-auth.session-token')?.value;
-
-  const decoded = await decode({
-    token: token,
-    secret: process.env.NEXTAUTH_SECRET ?? '',
+  const decoded = await getToken({
+    req: request,
+    secret: process.env.NEXTAUTH_SECRET,
   });
 
   const userInfo = await prisma.user.findUniqueOrThrow({
