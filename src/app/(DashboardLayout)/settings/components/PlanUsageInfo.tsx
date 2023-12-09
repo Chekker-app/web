@@ -22,9 +22,11 @@ export function PlanUsageInfo() {
           <CardTitle className="text-xl">{user?.Plan?.name} (Mensal)</CardTitle>
         </CardHeader>
         <CardFooter className="justify-end p-0">
-          <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
-            Atualizar Assinatura
-          </Button>
+          <a href="https://chekker.com.br" target="_blank" rel="noreferrer">
+            <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
+              Atualizar Assinatura
+            </Button>
+          </a>
         </CardFooter>
       </Card>
 

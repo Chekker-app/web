@@ -27,7 +27,7 @@ export function useSettings() {
     onError: (error: any) => {
       toast({
         variant: 'destructive',
-        description: error,
+        description: String(error.message),
       });
     },
   });
